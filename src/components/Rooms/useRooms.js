@@ -14,7 +14,6 @@ const useRooms = () => {
   const { data, loading } = useQuery(GET_ROOMS)
 
   const rooms = dotProp.get(data, "rooms", [])
-  console.log(rooms)
   return { rooms, loading }
 }
 

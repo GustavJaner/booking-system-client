@@ -1,16 +1,18 @@
 import React from "react"
 import gql from "graphql-tag"
 import { useMutation } from "@apollo/react-hooks"
-import { GET_ACCESS_GROUP } from "../AccessGroup/useAccessGroup"
+import { GET_ACCESS_GROUPS } from "../AccessGroup/useAccessGroup"
 
 const DELETE_ACCESS_GROUP = gql`
-  mutation removePost($id: ID!) {
-    removePost(id: $id)
+  mutation removeAccessGroup($id: ID!) {
+    removeAccessGroup(id: $id){
+      description
+    }
   }
 `
 const useRemoveAccessGroup = () => {
   const [mutate, { loading }] = useMutation(DELETE_ACCESS_GROUP, {
-    refetchQueries: [{ query: GET_ACCESS_GROUP }]
+    refetchQueries: [{ query: GET_ACCESS_GROUPS }]
   })
   const removeAccessGroup = id => mutate({ variables: { id } })
   return [removeAccessGroup, { loading }]

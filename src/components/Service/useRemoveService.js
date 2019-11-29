@@ -13,7 +13,7 @@ const useRemoveService = () => {
   const [mutate, { loading }] = useMutation(DELETE_SERVICE, {
     refetchQueries: [{ query: GET_SERVICES }]
   })
-  const removeServies = id => mutate({ variables: { id } })
-  return [removeServies, { loading }]
+  const removeService = id => mutate({ variables: { id } })
+  return [removeService, { loading }]
 }
 export default useRemoveService

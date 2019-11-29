@@ -3,7 +3,7 @@ import DeleteServiceButton from "../Service/DeleteServiceButton"
 import EditServiceButton from "../Service/EditServiceButton"
 
 const ServiceList = ({ services = [] }) => {
-  // console.log(services)
+   console.log("services",services)
   return (
     <ul>
       {services.map(service => (

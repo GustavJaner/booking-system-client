@@ -4,7 +4,7 @@ import dotProp from "dot-prop"
 import useAccessGroup from "./useAccessGroup"
 export const GET_ACCESS_GROUPS = gql`
   query useAccessGroups {
-    accessgroups(id: $id) {
+    accessGroups(id: $id) {
       id
       description
     }
@@ -13,10 +13,10 @@ export const GET_ACCESS_GROUPS = gql`
 
 const useAccessGroups = () => {
   const { data, loading } = useQuery(GET_ACCESS_GROUPS)
-  const accessgroups = dotProp.get(data, "accessgroups", [])
+  const accessGroups = dotProp.get(data, "accessGroups", [])
 
 
-  return { accessgroups, loading }
+  return { accessGroups, loading }
 }
 
 export default useAccessGroups
