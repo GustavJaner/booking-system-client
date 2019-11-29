@@ -1,15 +1,18 @@
 import React from "react"
+import DeleteAccessGroupButton from "../Post/DeleteAccessGroupButton"
+import UpdateAccessGroupButton from "../Post/UpdatePostButton"
 
-const AccessGroupList = () => {
+const AccessGroupList = ({ accessGroups = [] }) => {
   return (
-    <>
-      List of accessgroups.
-      <ul>
-        <li>
-          woho <button>Edit</button> <button>Remove</button>
+    <ul>
+      {accessGroups.map(accessGroup => (
+        <li key={accessGroup.id}>
+          {" "}
+          {accessGroup.id} - {accessGroup.description} <DeleteAccessGroupButton id={accessGroup.id} />
+          <UpdateAccessGroupButton id={accessGroup.id} />
         </li>
-      </ul>
-    </>
+      ))}
+    </ul>
   )
 }
 

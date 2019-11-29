@@ -1,6 +1,5 @@
 import React from "react"
 import DeletePostButton from "../Post/DeletePostButton"
-import EditPostForm from "../Post/EditPostForm"
 import UpdatePostButton from "../Post/UpdatePostButton"
 
 const List = ({ posts = [] }) => {
