@@ -1,6 +1,6 @@
 import React from "react"
-import DeleteAccessGroupButton from "../Post/DeleteAccessGroupButton"
-import UpdateAccessGroupButton from "../Post/UpdatePostButton"
+import DeleteAccessGroupButton from "../AccessGroup/DeleteAccessGroupButton"
+import UpdateAccessGroupButton from "../AccessGroup/UpdateAccessGroupButton"
 
 const AccessGroupList = ({ accessGroups = [] }) => {
   return (

@@ -3,7 +3,7 @@ import gql from "graphql-tag"
 import dotProp from "dot-prop"
 export const GET_ACCESS_GROUP = gql`
   query useAccessGroup($id: ID!) {
-    accessgroup(id: $id) {
+    accessgroups(id: $id) {
       id
       description
     }
