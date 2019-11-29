@@ -4,18 +4,20 @@ import useAccessGroup from "./useAccessGroup"
 import useUpdateAccessGroup from "./useUpdateAccessGroup"
 
 const EditAccessGroupForm = ({ id, onClose }) => {
-  const { accessgroup, loading } = useAccessGroup({ id })
-  const [updateAccessGroup] = useUpdateAccessGroup({ id })
-  const submitForm = async accessgroup => {
-    await updateAccessGroup(accessgroup)
+  const { loading, accessGroup } = useAccessGroup({ id })
+  const [updateAccessGroup] = useUpdateAccessGroup()
+  console.log("test",accessGroup)
+  const submitForm = async accessGroup => {
+    updateAccessGroup(accessGroup)
     onClose()
   }
-
-  if (loading) return <p> Loading</p>
+  if (loading) {
+    return <p> Loading </p>
+  }
   return (
     <Form
       onSubmit={submitForm}
-      initialValues={{ description: accessgroup.description}}
+      initialValues={{ id: accessGroup.id, description: accessGroup.description }}
     >
       {props => (
         <form onSubmit={props.handleSubmit}>

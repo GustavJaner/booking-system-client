@@ -11,9 +11,8 @@ export const GET_ACCESS_GROUPS = gql`
 `
 const useAccessGroup = ({ id }) => {
   const { data, loading } = useQuery(GET_ACCESS_GROUPS, { variables: { id } })
-  const accessgroup = dotProp.get(data, "accessgroup")
-  
-  return { accessgroup, loading }
+  const accessGroup = dotProp.get(data, "accessGroups")
+  return { accessGroup, loading }
 }
 
 export default useAccessGroup

@@ -1,22 +1,23 @@
-import { useQuery } from "@apollo/react-hooks"
+import React from "react"
 import gql from "graphql-tag"
-import dotProp from "dot-prop"
-import useAccessGroup from "./useAccessGroup"
-export const GET_ACCESS_GROUPS = gql`
-  query useAccessGroups {
-    accessGroups(id: $id) {
+import { useMutation } from "@apollo/react-hooks"
+import { GET_ACCESS_GROUPS } from "../AccessGroups/useAccessGroups"
+
+const UPDATE_ACCESS_GROUP = gql`
+  mutation updateAccessGroup($id: ID!, $description: String!) {
+    updateAccessGroup(id: $id, description: $description) {
       id
       description
     }
   }
 `
 
-const useAccessGroups = () => {
-  const { data, loading } = useQuery(GET_ACCESS_GROUPS)
-  const accessGroups = dotProp.get(data, "accessGroups", [])
-
-
-  return { accessGroups, loading }
+const useUpdateAccessGroup = () => {
+  const [mutate, { loading }] = useMutation(UPDATE_ACCESS_GROUP, {
+    refetchQueries: [{ query: GET_ACCESS_GROUPS }]
+  })
+  const updateAccessGroup = accessGroup => mutate({ variables: { ...accessGroup } })
+  return [updateAccessGroup, { loading }]
 }
 
-export default useAccessGroups
+export default useUpdateAccessGroup

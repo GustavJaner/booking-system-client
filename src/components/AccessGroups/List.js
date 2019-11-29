@@ -1,6 +1,6 @@
 import React from "react"
 import DeleteAccessGroupButton from "../AccessGroup/DeleteAccessGroupButton"
-import UpdateAccessGroupButton from "../AccessGroup/UpdateAccessGroupButton"
+import EditAccessGroupButton from "../AccessGroup/EditAccessGroupButton"
 
 const AccessGroupList = ({ accessGroups = [] }) => {
   //console.log("access",accessGroups)
@@ -12,7 +12,7 @@ const AccessGroupList = ({ accessGroups = [] }) => {
         <li key={accessGroup.id}>
           {accessGroup.description}
           <DeleteAccessGroupButton id={accessGroup.id} />
-          <UpdateAccessGroupButton id={accessGroup.id} />
+          <EditAccessGroupButton id={accessGroup.id} />
         </li>
       ))}
     </ul>
