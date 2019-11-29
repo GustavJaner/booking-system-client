@@ -28,6 +28,7 @@ const Admin = () => {
 
       <h2 onClick={() => roomsVisible.toggle()}> Rooms</h2>
       {roomsVisible.open && <RoomList rooms={rooms} />}
+
       <h2>Accessgroups</h2>
       <AccessGroupList />
     </>

@@ -1,5 +1,5 @@
 import React from "react"
-import DeleteAccessGroupButton from "../Post/DeleteAccessGroupButton"
+//import DeleteAccessGroupButton from "../Post/DeleteAccessGroupButton"
 import UpdateAccessGroupButton from "../Post/UpdatePostButton"
 
 const AccessGroupList = ({ accessGroups = [] }) => {
@@ -8,7 +8,7 @@ const AccessGroupList = ({ accessGroups = [] }) => {
       {accessGroups.map(accessGroup => (
         <li key={accessGroup.id}>
           {" "}
-          {accessGroup.id} - {accessGroup.description} <DeleteAccessGroupButton id={accessGroup.id} />
+          {accessGroup.id} - {accessGroup.description}
           <UpdateAccessGroupButton id={accessGroup.id} />
         </li>
       ))}
