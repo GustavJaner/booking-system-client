@@ -19,7 +19,7 @@ export const GET_ROOM = gql`
       }
       accessGroups {
         id
-        description
+        name
       }
     }
   }

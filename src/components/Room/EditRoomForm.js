@@ -12,7 +12,8 @@ import {
 } from "../FinalFormComponents/Form"
 import useServices from "../Services/useServices"
 import useUpdateRoom from "./useUpdateRoom"
-import useAccessGroups from "../AccessGroup/useUpdateAccessGroup"
+import useAccessGroups from "../AccessGroups/useAccessGroups"
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -26,17 +27,15 @@ const useStyles = makeStyles(theme => ({
 
 const EditRoomForm = ({ id, onClose }) => {
   const services = useServices()
-  //const accessgroups = useAccessGroups()
-  //console.log(accessgroups)
+  const accessgroups = useAccessGroups()
   const [updateRoom] = useUpdateRoom({ id })
   const { loading, room } = useRoom({ id })
-  //const accessgroups = useaccess
   const classes = useStyles()
 
   const submitForm = async _room => {
     console.log("room change", _room)
     if (!_.isEmpty(_room.accessGroupIds)) {
-      _room.accessGroupsIds = _room.accessGroupsIds.map(ag => ag.value)
+      _room.accessGroupsIds = _room.accessGroupIds.map(ag => ag.value)
     }
     if (!_.isEmpty(_room.serviceId)) {
       _room.serviceId = _room.serviceId.value
@@ -45,8 +44,10 @@ const EditRoomForm = ({ id, onClose }) => {
     await updateRoom(_room)
     onClose()
   }
-
-  if (loading || services.loading) return <p> loading</p>
+  if (loading || services.loading || accessgroups.loading)
+    return <p> loading</p>
+  if (!accessgroups.loading) console.log(accessgroups)
+  console.log("room", room)
   return (
     <Form
       onSubmit={submitForm}
@@ -58,11 +59,11 @@ const EditRoomForm = ({ id, onClose }) => {
         duration: room.duration || "",
         adress: room.adress,
         description: room.description,
-        serviceId: { value: room.service.id, label: room.service.name }
-        /* accessGroupIds: room.accessGroups.map(ag => ({
-          label: ag.description,
+        serviceId: { value: room.service.id, label: room.service.name },
+        accessGroupIds: room.accessGroups.map(ag => ({
+          label: ag.name,
           value: ag.id
-        }))*/
+        }))
       }}
     >
       {props => (
@@ -135,10 +136,10 @@ const EditRoomForm = ({ id, onClose }) => {
                     name="accessGroupIds"
                     component={ReactSelectAdapter}
                     isMulti
-                    /* options={accessgroups.accessgroups.map(ag => ({
-                      label: ag.description,
+                    options={accessgroups.accessGroups.map(ag => ({
+                      label: ag.name,
                       value: ag.id
-                    }))}*/
+                    }))}
                   />
                 </label>
               </>
