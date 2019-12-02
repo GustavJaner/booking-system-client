@@ -7,7 +7,8 @@ const CREATE_ROOM = gql`
     $start: String!
     $end: String!
     $name: String!
-    $adress: String!
+    $adress: String
+    $description: String
     $accessGroupIds: [ID!]!
     $serviceId: ID!
     $duration: Int!
@@ -18,6 +19,7 @@ const CREATE_ROOM = gql`
       duration: $duration
       name: $name
       adress: $adress
+      description: $description
       accessGroupIds: $accessGroupIds
       serviceId: $serviceId
     ) {

@@ -33,26 +33,24 @@ const EditRoomForm = ({ id, onClose }) => {
   const classes = useStyles()
 
   const submitForm = async _room => {
-    console.log("room change", _room)
     if (!_.isEmpty(_room.accessGroupIds)) {
-      _room.accessGroupsIds = _room.accessGroupIds.map(ag => ag.value)
+      _room.accessGroupIds = _room.accessGroupIds.map(ag => ag.value)
     }
     if (!_.isEmpty(_room.serviceId)) {
       _room.serviceId = _room.serviceId.value
     }
-    console.log("skickas in i updateroom", _room)
+
     await updateRoom(_room)
     onClose()
   }
   if (loading || services.loading || accessgroups.loading)
     return <p> loading</p>
-  if (!accessgroups.loading) console.log(accessgroups)
-  console.log("room", room)
+
   return (
     <Form
       onSubmit={submitForm}
       initialValues={{
-        id: room.id,
+        id: id,
         name: room.name,
         start: room.start,
         end: room.end,

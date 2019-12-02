@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary
   }
 }))
-
+const required = value => (value ? undefined : "Required")
 const CreateRoomForm = () => {
   const [createRoom] = useCreateRoom()
   const services = useServices()
@@ -33,8 +33,10 @@ const CreateRoomForm = () => {
   const submitForm = async _room => {
     _room.duration = parseInt(_room.duration)
     _room.serviceId = _room.serviceId.value
-    _room.accessGroupIds = ["5dde89780a19d8d1898775cc"]
-    console.log("room", _room)
+    _room.accessGroupIds = _room.accessGroupIds
+      ? _room.accessGroupIds.map(ag => ag.value)
+      : []
+
     await createRoom(_room)
   }
 
@@ -49,6 +51,7 @@ const CreateRoomForm = () => {
                 name="name"
                 component={TextFieldAdapter}
                 floatingLabelText="Room Name"
+                validate={required}
               />
             </Grid>
             <Grid item xs={4}>
@@ -56,6 +59,7 @@ const CreateRoomForm = () => {
                 name="start"
                 component={TextFieldAdapter}
                 floatingLabelText="First booking time"
+                validate={required}
               />
             </Grid>
             <Grid item xs={4}>
@@ -63,6 +67,7 @@ const CreateRoomForm = () => {
                 name="end"
                 component={TextFieldAdapter}
                 floatingLabelText="Last booking ends"
+                validate={required}
               />
             </Grid>
             <Grid item xs={4}>
@@ -70,6 +75,7 @@ const CreateRoomForm = () => {
                 name="duration"
                 component={TextFieldAdapter}
                 floatingLabelText="Duration of a booking"
+                validate={required}
               />
             </Grid>
             <Grid item xs={4}>
@@ -96,6 +102,7 @@ const CreateRoomForm = () => {
                     label: service.name,
                     value: service.id
                   }))}
+                  validate={required}
                 />
               </label>
             </Grid>
@@ -112,6 +119,7 @@ const CreateRoomForm = () => {
                       value: ag.id
                     }))}
                     isMulti
+                    validate={required}
                   />
                 </label>
               </>
