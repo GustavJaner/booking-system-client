@@ -2,18 +2,46 @@ import React from "react"
 import DeleteServiceButton from "../Service/DeleteServiceButton"
 import EditServiceButton from "../Service/EditServiceButton"
 
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+
 const ServiceList = ({ services = [] }) => {
    console.log("services",services)
   return (
-    <ul>
+    <List>
       {services.map(service => (
-        <li key={service.id}>
+        <ListItem key={service.id}>
           {service.name}
-          <DeleteServiceButton id={service.id} />
           <EditServiceButton id={service.id} />
-        </li>
+          <DeleteServiceButton id={service.id} />
+        </ListItem>
       ))}
-    </ul>
+    </List>
   )
 }
 export default ServiceList
+
+/*
+
+
+
+    <Grid item xs={12} md={6}>
+      <Typography variant="h6" className={services.title}>
+        Text only
+      </Typography>
+      <div className={services.List}>
+        <List dense={dense}>
+        {services.map(service => (
+          <ListItem key={service.id}>
+            {service.name}
+            <DeleteServiceButton id={service.id} />
+            <EditServiceButton id={service.id} />
+          </ListItem>,
+        ))}
+        </List>
+      </div>
+    </Grid>
+
+*/
