@@ -4,7 +4,6 @@ import EditServiceForm from "./EditServiceForm"
 
 const EditServiceButton = ({ id }) => {
   const { open, setFalse, toggle } = useVisible()
-  console.log(id)
   return (
     <>
       {open && <EditServiceForm id={id} onClose={setFalse} />}
