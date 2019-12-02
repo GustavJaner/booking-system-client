@@ -9,7 +9,6 @@ export const GET_ROOMS = gql`
     }
   }
 `
-
 const useRooms = () => {
   const { data, loading } = useQuery(GET_ROOMS)
 

@@ -10,7 +10,7 @@ const AccessGroupList = ({ accessGroups = [] }) => {
     <ul>
       {accessGroups.map(accessGroup => (
         <li key={accessGroup.id}>
-          {accessGroup.description}
+          {accessGroup.name}
           <DeleteAccessGroupButton id={accessGroup.id} />
           <EditAccessGroupButton id={accessGroup.id} />
         </li>

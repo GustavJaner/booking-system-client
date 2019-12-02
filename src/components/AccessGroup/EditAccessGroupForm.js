@@ -6,7 +6,6 @@ import useUpdateAccessGroup from "./useUpdateAccessGroup"
 const EditAccessGroupForm = ({ id, onClose }) => {
   const { loading, accessGroup } = useAccessGroup({ id })
   const [updateAccessGroup] = useUpdateAccessGroup()
-  console.log("test",accessGroup)
   const submitForm = async accessGroup => {
     updateAccessGroup(accessGroup)
     onClose()
@@ -17,11 +16,14 @@ const EditAccessGroupForm = ({ id, onClose }) => {
   return (
     <Form
       onSubmit={submitForm}
-      initialValues={{ id: accessGroup.id, description: accessGroup.description }}
+      initialValues={{
+        id: id,
+        name: accessGroup.name
+      }}
     >
       {props => (
         <form onSubmit={props.handleSubmit}>
-          <Field name="description" component="input" placeholder="description" />
+          <Field name="name" component="input" placeholder="name" />
           <button type="submit">Update</button>
         </form>
       )}

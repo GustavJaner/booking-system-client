@@ -2,10 +2,10 @@ import { useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 import dotProp from "dot-prop"
 export const GET_ACCESS_GROUPS = gql`
-  query useAccessGroup{
-    accessGroups{
+  query useAccessGroup {
+    accessGroups {
+      name
       id
-      description
     }
   }
 `

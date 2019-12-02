@@ -4,10 +4,10 @@ import { useMutation } from "@apollo/react-hooks"
 import { GET_ACCESS_GROUPS } from "../AccessGroups/useAccessGroups"
 
 const UPDATE_ACCESS_GROUP = gql`
-  mutation updateAccessGroup($id: ID!, $description: String!) {
-    updateAccessGroup(id: $id, description: $description) {
+  mutation updateAccessGroup($id: ID!, $name: String!) {
+    updateAccessGroup(id: $id, name: $name) {
       id
-      description
+      name
     }
   }
 `
@@ -16,7 +16,8 @@ const useUpdateAccessGroup = () => {
   const [mutate, { loading }] = useMutation(UPDATE_ACCESS_GROUP, {
     refetchQueries: [{ query: GET_ACCESS_GROUPS }]
   })
-  const updateAccessGroup = accessGroup => mutate({ variables: { ...accessGroup } })
+  const updateAccessGroup = accessGroup =>
+    mutate({ variables: { ...accessGroup } })
   return [updateAccessGroup, { loading }]
 }
 

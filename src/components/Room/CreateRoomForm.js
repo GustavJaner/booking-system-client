@@ -1,6 +1,5 @@
 import React from "react"
 import { Form, Field } from "react-final-form"
-import useRoom from "./useRoom"
 import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
@@ -11,8 +10,9 @@ import {
   ReactSelectAdapter
 } from "../FinalFormComponents/Form"
 import useServices from "../Services/useServices"
-import useUpdateRoom from "./useUpdateRoom"
-import useAccessGroups from "../AccessGroup/useUpdateAccessGroup"
+import useCreateRoom from "./useCreateRoom"
+import useAccessGroups from "../AccessGroups/useAccessGroups"
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -24,47 +24,23 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const EditRoomForm = ({ id, onClose }) => {
+const CreateRoomForm = () => {
+  const [createRoom] = useCreateRoom()
   const services = useServices()
-  //const accessgroups = useAccessGroups()
-  //console.log(accessgroups)
-  const [updateRoom] = useUpdateRoom({ id })
-  const { loading, room } = useRoom({ id })
-  //const accessgroups = useaccess
+  const access = useAccessGroups()
   const classes = useStyles()
 
   const submitForm = async _room => {
-    console.log("room change", _room)
-    if (!_.isEmpty(_room.accessGroupIds)) {
-      _room.accessGroupsIds = _room.accessGroupsIds.map(ag => ag.value)
-    }
-    if (!_.isEmpty(_room.serviceId)) {
-      _room.serviceId = _room.serviceId.value
-    }
-    console.log("skickas in i updateroom", _room)
-    await updateRoom(_room)
-    onClose()
+    _room.duration = parseInt(_room.duration)
+    _room.serviceId = _room.serviceId.value
+    _room.accessGroupIds = ["5dde89780a19d8d1898775cc"]
+    console.log("room", _room)
+    await createRoom(_room)
   }
 
-  if (loading || services.loading) return <p> loading</p>
+  if (services.loading || access.loading) return <p> loading</p>
   return (
-    <Form
-      onSubmit={submitForm}
-      initialValues={{
-        id: room.id,
-        name: room.name,
-        start: room.start,
-        end: room.end,
-        duration: room.duration || "",
-        adress: room.adress,
-        description: room.description,
-        serviceId: { value: room.service.id, label: room.service.name }
-        /* accessGroupIds: room.accessGroups.map(ag => ({
-          label: ag.description,
-          value: ag.id
-        }))*/
-      }}
-    >
+    <Form onSubmit={submitForm}>
       {props => (
         <form onSubmit={props.handleSubmit}>
           <Grid container spacing={3}>
@@ -115,9 +91,6 @@ const EditRoomForm = ({ id, onClose }) => {
                 Service
                 <Field
                   name="serviceId"
-                  label="accessgroup"
-                  floatingLabelText="Services"
-                  placeholder="Accessgroups"
                   component={ReactSelectAdapter}
                   options={services.services.map(service => ({
                     label: service.name,
@@ -134,18 +107,18 @@ const EditRoomForm = ({ id, onClose }) => {
                   <Field
                     name="accessGroupIds"
                     component={ReactSelectAdapter}
-                    isMulti
-                    /* options={accessgroups.accessgroups.map(ag => ({
-                      label: ag.description,
+                    options={access.accessGroups.map(ag => ({
+                      label: ag.name,
                       value: ag.id
-                    }))}*/
+                    }))}
+                    isMulti
                   />
                 </label>
               </>
             </Grid>
             <Grid item xs={4}>
               <Button type="submit" color="primary" variant="contained">
-                Update
+                Create
               </Button>
             </Grid>
           </Grid>
@@ -154,4 +127,4 @@ const EditRoomForm = ({ id, onClose }) => {
     </Form>
   )
 }
-export default EditRoomForm
+export default CreateRoomForm

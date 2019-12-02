@@ -5,9 +5,7 @@ import { GET_ACCESS_GROUPS } from "../AccessGroup/useAccessGroup"
 
 const DELETE_ACCESS_GROUP = gql`
   mutation removeAccessGroup($id: ID!) {
-    removeAccessGroup(id: $id){
-      description
-    }
+    removeAccessGroup(id: $id)
   }
 `
 const useRemoveAccessGroup = () => {

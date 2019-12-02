@@ -5,17 +5,15 @@ import DeleteRoomButton from "../Room/DeleteRoomButton"
 const RoomList = ({ rooms }) => {
   return (
     <>
-      <MuiThemeProvider>
-        <ul>
-          {rooms.map(room => (
-            <li>
-              {" "}
-              {room.name} <EditRoomButton id={room.id} />{" "}
-              <DeleteRoomButton id={room.id} />
-            </li>
-          ))}
-        </ul>
-      </MuiThemeProvider>
+      <ul>
+        {rooms.map(room => (
+          <li key={room.id}>
+            {" "}
+            {room.name} <EditRoomButton id={room.id} />{" "}
+            <DeleteRoomButton id={room.id} />
+          </li>
+        ))}
+      </ul>
     </>
   )
 }
