@@ -11,12 +11,18 @@ import AccessGroupList from "../../components/AccessGroups/List"
 import useAccessGroups from "../../components/AccessGroups/useAccessGroups"
 import Navbar from "../../components/Navbar/navbar"
 import { makeStyles, useTheme } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { AutoComplete } from "material-ui"
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
-
+  paper: {
+    padding: theme.spacing(3, 2),
+    margin: theme.spacing(2)
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
@@ -47,31 +53,41 @@ const Admin = () => {
       
       <div className={classes.content}>
 
-      
-        <h2 onClick={() => servicesVisible.toggle()}>Services</h2>
-        {servicesVisible.open && (
-          <>
-            <ServiceList services={services} />
-            <CreateService />
-          </>
-        )}
+          <Route path="/services">
+            <Paper className={classes.paper}>
+              <h2 onClick={() => servicesVisible.toggle()}>Services</h2>
+              {servicesVisible.open && (
+                <>
+                  <ServiceList services={services} />
+                  <CreateService />
+                </>
+              )}
+            </Paper>
+          </Route>
 
-        <h2 onClick={() => roomsVisible.toggle()}> Rooms</h2>
-        {roomsVisible.open && (
-          <>
-            <RoomList rooms={rooms} />
-            <h1> CREATE!!!!</h1>
-            <CreateRoomForm />
-          </>
+        <Route path="/rooms">
+        <Paper className={classes.paper}>
+          <h2 onClick={() => roomsVisible.toggle()}> Rooms</h2>
+          {roomsVisible.open && (
+            <>
+              <RoomList rooms={rooms} />
+              <h1> CREATE!!!!</h1>
+              <CreateRoomForm />
+            </>
         )}
+        </Paper>
+        </Route>
 
-        <h2 onClick={() => accessGroupVisible.toggle()}> AccessGroups</h2>
-        {accessGroupVisible.open && (
-          <AccessGroupList accessGroups={accessGroups} />
-        )}
+        <Route path="/AccessGroups">
+        <Paper className={classes.paper}>
+          <h2 onClick={() => accessGroupVisible.toggle()}> AccessGroups</h2>
+          {accessGroupVisible.open && (
+            <AccessGroupList accessGroups={accessGroups} />
+          )}
+        </Paper>
+        </Route>
         </div>
       </div>
-
     </MuiThemeProvider>
   )
 }

@@ -18,6 +18,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import LocalLaundryServiceIcon from '@material-ui/icons/LocalLaundryService';
+import { Link } from 'react-router-dom';
+
 
 const drawerWidth = 240;
 
@@ -95,11 +97,6 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  const handleId = (e) => {
-    console.log(e.target.id);
-    console.log(e.currentTarget.id);
-  }
-
   return (
     <>
       <CssBaseline />
@@ -148,17 +145,17 @@ export default function MiniDrawer() {
         <Divider />
         <List>
 
-          <ListItem button key={"Services"} onClick={() => { console.log('Services') }}>
+          <ListItem button component={Link} to="/services" key={"Services"} onClick={() => { console.log('Services') }}>
             <ListItemIcon ><LocalLaundryServiceIcon/></ListItemIcon>
             <ListItemText primary={"Services"} />
           </ListItem>
 
-          <ListItem button key={"Rooms"} onClick={() => { console.log('Rooms') }}>
+          <ListItem button component={Link} to="/rooms" key={"Rooms"} onClick={() => { console.log('Rooms') }}>
             <ListItemIcon ><MeetingRoomIcon/></ListItemIcon>
             <ListItemText primary={"Rooms"} />
           </ListItem>
 
-          <ListItem button key={"AccessGroups"} onClick={() => { console.log('Access Groups') }}>
+          <ListItem button component={Link} to="/AccessGroups" key={"AccessGroups"} onClick={() => { console.log('Access Groups') }}>
             <ListItemIcon ><VpnKeyIcon/></ListItemIcon>
             <ListItemText primary={"Access Groups"} />
           </ListItem>
