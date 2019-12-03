@@ -18,7 +18,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import LocalLaundryServiceIcon from '@material-ui/icons/LocalLaundryService';
-import MailIcon from '@material-ui/icons/Mail';
 
 const drawerWidth = 240;
 
