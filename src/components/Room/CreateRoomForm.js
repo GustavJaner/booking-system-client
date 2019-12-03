@@ -1,10 +1,9 @@
 import React from "react"
 import { Form, Field } from "react-final-form"
-import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
-import { makeStyles } from "@material-ui/core/styles"
-import _ from "lodash"
+//import { makeStyles } from "@material-ui/core/styles"
+//import _ from "lodash"
 import {
   TextFieldAdapter,
   ReactSelectAdapter
@@ -13,7 +12,7 @@ import useServices from "../Services/useServices"
 import useCreateRoom from "./useCreateRoom"
 import useAccessGroups from "../AccessGroups/useAccessGroups"
 
-const useStyles = makeStyles(theme => ({
+/*const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
@@ -22,13 +21,13 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     color: theme.palette.text.secondary
   }
-}))
+}))*/
 const required = value => (value ? undefined : "Required")
 const CreateRoomForm = () => {
   const [createRoom] = useCreateRoom()
   const services = useServices()
   const access = useAccessGroups()
-  const classes = useStyles()
+  //const classes = useStyles()
 
   const submitForm = async _room => {
     _room.duration = parseInt(_room.duration)

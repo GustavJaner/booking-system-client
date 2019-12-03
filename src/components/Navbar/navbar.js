@@ -17,6 +17,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import PersonIcon from '@material-ui/icons/Person';
 import LocalLaundryServiceIcon from '@material-ui/icons/LocalLaundryService';
 import { Link } from 'react-router-dom';
 
@@ -155,9 +156,14 @@ export default function MiniDrawer() {
             <ListItemText primary={"Rooms"} />
           </ListItem>
 
-          <ListItem button component={Link} to="/AccessGroups" key={"AccessGroups"} onClick={() => { console.log('Access Groups') }}>
+          <ListItem button component={Link} to="/accessgroups" key={"AccessGroups"} onClick={() => { console.log('Access Groups') }}>
             <ListItemIcon ><VpnKeyIcon/></ListItemIcon>
             <ListItemText primary={"Access Groups"} />
+          </ListItem>
+
+          <ListItem button component={Link} to="/users" key={"Users"} onClick={() => { console.log('Users') }}>
+            <ListItemIcon ><PersonIcon/></ListItemIcon>
+            <ListItemText primary={"Users"} />
           </ListItem>
 
         </List>

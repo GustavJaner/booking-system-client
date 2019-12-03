@@ -1,4 +1,3 @@
-import React from "react"
 import { useQuery } from "@apollo/react-hooks"
 import dotProp from "dot-prop"
 import gql from "graphql-tag"

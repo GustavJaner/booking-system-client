@@ -1,10 +1,9 @@
 import React from "react"
 import { Form, Field } from "react-final-form"
 import useRoom from "./useRoom"
-import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
-import { makeStyles } from "@material-ui/core/styles"
+//import { makeStyles } from "@material-ui/core/styles"
 import _ from "lodash"
 import {
   TextFieldAdapter,
@@ -14,7 +13,7 @@ import useServices from "../Services/useServices"
 import useUpdateRoom from "./useUpdateRoom"
 import useAccessGroups from "../AccessGroups/useAccessGroups"
 
-const useStyles = makeStyles(theme => ({
+/*const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
@@ -23,14 +22,14 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     color: theme.palette.text.secondary
   }
-}))
+}))*/
 
 const EditRoomForm = ({ id, onClose }) => {
   const services = useServices()
   const accessgroups = useAccessGroups()
   const [updateRoom] = useUpdateRoom({ id })
   const { loading, room } = useRoom({ id })
-  const classes = useStyles()
+  //const classes = useStyles()
 
   const submitForm = async _room => {
     if (!_.isEmpty(_room.accessGroupIds)) {

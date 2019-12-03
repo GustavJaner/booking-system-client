@@ -1,4 +1,3 @@
-import React from "react"
 import gql from "graphql-tag"
 import { useMutation } from "@apollo/react-hooks"
 import { GET_ACCESS_GROUPS } from "../AccessGroups/useAccessGroups"
