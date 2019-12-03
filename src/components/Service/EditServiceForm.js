@@ -16,7 +16,7 @@ const EditServiceForm = ({ id, onClose }) => {
   return (
     <Form
       onSubmit={submitForm}
-      initialValues={{ id: service.id, name: service.name }}
+      initialValues={{ id: service.id, name: "" }}
     >
       {props => (
         <form onSubmit={props.handleSubmit}>
