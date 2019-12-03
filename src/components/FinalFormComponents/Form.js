@@ -2,6 +2,8 @@ import React from "react"
 import TextField from "material-ui/TextField"
 import Toggle from "material-ui/Toggle"
 import Select from "react-select"
+import { TimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import MomentUtils from '@date-io/moment';
 
 export const TextFieldAdapter = ({ input, meta, ...rest }) => (
   <TextField
@@ -28,3 +30,34 @@ export const ToggleAdapter = ({
 export const ReactSelectAdapter = ({ input, ...rest }) => (
   <Select {...input} {...rest} searchable />
 )
+
+export function TimePickerWrapper(props) {
+  const {
+    input: { name, onChange, value, ...restInput },
+    meta,
+    ...rest
+  } = props;
+  const showError =
+    ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
+    meta.touched;
+
+  return (
+    <MuiPickersUtilsProvider utils={MomentUtils}>
+      <TimePicker
+        {...rest}
+        name={name}
+        helperText={showError ? meta.error || meta.submitError : undefined}
+        error={showError}
+        inputProps={restInput}
+        ampm={false}
+        disableToolbar={true}
+        format="HH:mm"
+        views={["hours", "minutes"]}
+        minutesStep={30}
+        onChange={onChange}
+        value={value === '' ? null : value}
+      />
+    </MuiPickersUtilsProvider>
+
+  );
+}

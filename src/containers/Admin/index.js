@@ -10,10 +10,9 @@ import CreateRoomForm from "../../components/Room/CreateRoomForm"
 import AccessGroupList from "../../components/AccessGroups/List"
 import useAccessGroups from "../../components/AccessGroups/useAccessGroups"
 import Navbar from "../../components/Navbar/navbar"
-import { makeStyles, useTheme } from '@material-ui/core/styles'
+import { makeStyles} from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { AutoComplete } from "material-ui"
+import { BrowserRouter as Route} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,18 +30,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Admin = () => {
-  const { services = [], loading } = useServices()
+  const { services = []} = useServices()
   const { rooms = [] } = useRooms()
   const { accessGroups = [] } = useAccessGroups()
   const servicesVisible = useVisible()
   const roomsVisible = useVisible()
   const accessGroupVisible = useVisible()
   const classes = useStyles();
-  const theme = useTheme();
-
-  //console.log(accessGroups)
-  //console.log(servicesVisible)
-
 
   return (
     
