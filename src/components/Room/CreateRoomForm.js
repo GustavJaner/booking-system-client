@@ -1,9 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 import { Form, Field } from "react-final-form"
 import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import { makeStyles } from "@material-ui/core/styles"
+import SnackBar from "@material-ui/core/Snackbar"
 import _ from "lodash"
 import {
   TextFieldAdapter,
@@ -12,6 +13,7 @@ import {
 import useServices from "../Services/useServices"
 import useCreateRoom from "./useCreateRoom"
 import useAccessGroups from "../AccessGroups/useAccessGroups"
+import moment from "moment";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,24 +26,42 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 const required = value => (value ? undefined : "Required")
+
 const CreateRoomForm = () => {
   const [createRoom] = useCreateRoom()
   const services = useServices()
   const access = useAccessGroups()
   const classes = useStyles()
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+ 
 
   const submitForm = async _room => {
+ 
     _room.duration = parseInt(_room.duration)
-    _room.serviceId = _room.serviceId.value
-    _room.accessGroupIds = _room.accessGroupIds
-      ? _room.accessGroupIds.map(ag => ag.value)
-      : []
+    if(moment(_room.end, 'HH:mm').diff(moment(_room.start, 'HH:mm'), 'minutes') % _room.duration != 0){
+      setOpen(true);
+    } else {
 
-    await createRoom(_room)
+    
+        _room.serviceId = _room.serviceId.value
+        _room.accessGroupIds = _room.accessGroupIds
+          ? _room.accessGroupIds.map(ag => ag.value)
+          : []
+    
+        
+        await createRoom(_room)
+        
+    }
   }
 
   if (services.loading || access.loading) return <p> loading</p>
   return (
+    <>
     <Form onSubmit={submitForm}>
       {props => (
         <form onSubmit={props.handleSubmit}>
@@ -133,6 +153,17 @@ const CreateRoomForm = () => {
         </form>
       )}
     </Form>
+    <SnackBar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left'
+      }}
+    open={open}
+    onClose={handleClose}
+    autoHideDuration={4000}
+    message={'Duration does not fit into time slot'}
+      />
+    </>
   )
 }
 export default CreateRoomForm
