@@ -19,6 +19,7 @@ import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import PersonIcon from '@material-ui/icons/Person';
 import LocalLaundryServiceIcon from '@material-ui/icons/LocalLaundryService';
+import HomeIcon from '@material-ui/icons/Home';
 import { Link } from 'react-router-dom';
 
 
@@ -145,6 +146,11 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
+
+          <ListItem button component={Link} to="/admin" key={"Home"} onClick={() => { console.log('Services') }}>
+            <ListItemIcon ><HomeIcon/></ListItemIcon>
+            <ListItemText primary={"Home"} />
+          </ListItem>
 
           <ListItem button component={Link} to="/services" key={"Services"} onClick={() => { console.log('Services') }}>
             <ListItemIcon ><LocalLaundryServiceIcon/></ListItemIcon>

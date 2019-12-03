@@ -53,33 +53,46 @@ const Admin = () => {
       
       <div className={classes.content}>
 
-          <Route path="/services">
+      <Route path="/admin">
             <Paper className={classes.paper}>
-              <h2>Services</h2>
-                <>
-                  <ServiceList services={services} />
-                  <CreateService />
-                </>
+              <h2>Home</h2>
             </Paper>
-          </Route>
+      </Route>
 
-        <Route path="/rooms">
-          <Paper className={classes.paper}>
-            <h2>Rooms</h2>
-              <>
-                <RoomList rooms={rooms} />
-                <CreateRoomForm />
-              </>
-          </Paper>
-        
-        </Route>
-       
-        <Route path="/accessgroups">
-          <Paper className={classes.paper}>
-            <h2> AccessGroups</h2>
-            <AccessGroupList accessGroups={accessGroups} />
-          </Paper>
-        </Route>
+      <Route path="/services">
+        <Paper className={classes.paper}>
+          <h2>Services</h2>
+            <>
+              <ServiceList services={services} />
+              <CreateService />
+            </>
+        </Paper>
+      </Route>
+
+      <Route path="/rooms">
+        <Paper className={classes.paper}>
+          <h2>Rooms</h2>
+            <>
+              <RoomList rooms={rooms} />
+              <CreateRoomForm />
+            </>
+        </Paper>
+      </Route>
+      
+      <Route path="/accessgroups">
+        <Paper className={classes.paper}>
+          <h2> Access Groups</h2>
+          <AccessGroupList accessGroups={accessGroups} />
+        </Paper>
+      </Route>
+
+      <Route path="/users">
+        <Paper className={classes.paper}>
+          <h2>Users</h2>
+
+        </Paper>
+      </Route>
+
         </div>
       </div>
     </MuiThemeProvider>
