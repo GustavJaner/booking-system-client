@@ -66,32 +66,3 @@ const ServiceList = ({ services = [] }) => {
   
 }
 export default ServiceList
-
-/*
-
-    <List>
-      {services.map(service => (
-        <ListItem key={service.id}>
-          {service.name}
-          <EditServiceButton id={service.id} />
-          <DeleteServiceButton id={service.id} />
-        </ListItem>
-      ))}
-    </List>
-
- <Grid item xs={4}>
-              <label>
-                Service
-                <Field
-                  name="serviceId"
-                  component={ReactSelectAdapter}
-                  options={services.services.map(service => ({
-                    label: service.name,
-                    value: service.id
-                  }))}
-                  validate={required}
-                />
-              </label>
-            </Grid>
-
-*/

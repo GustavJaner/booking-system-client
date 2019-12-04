@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Admin = () => {
-  const { services = [], loading } = useServices()
+  const { services = []} = useServices()
   const { rooms = [] } = useRooms()
   const { accessGroups = [] } = useAccessGroups()
   //const servicesVisible = useVisible()
