@@ -56,7 +56,7 @@ const ServiceList = ({ services = [] }) => {
         </MenuItem>
         ))}
         
-        
+        git
       </Select>
     </FormControl>
     <EditServiceButton id={serviceID} />

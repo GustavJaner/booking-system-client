@@ -9,7 +9,7 @@ import useRooms from "../../components/Rooms/useRooms"
 import CreateRoomForm from "../../components/Room/CreateRoomForm"
 import AccessGroupList from "../../components/AccessGroups/List"
 import useAccessGroups from "../../components/AccessGroups/useAccessGroups"
-import Navbar from "../../components/Navbar/navbar"
+import Navbar from "../../components/Drawer/drawer"
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
