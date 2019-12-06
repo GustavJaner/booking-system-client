@@ -1,11 +1,11 @@
-import React from 'react';
+
+import React, { forwardRef } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,7 +20,8 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import PersonIcon from '@material-ui/icons/Person';
 import LocalLaundryServiceIcon from '@material-ui/icons/LocalLaundryService';
 import HomeIcon from '@material-ui/icons/Home';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { adminListItems } from './adminListItems';
 
 
 const drawerWidth = 240;
@@ -101,7 +102,7 @@ export default function MiniDrawer() {
 
   return (
     <>
-      <CssBaseline />
+
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -146,32 +147,7 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
-
-          <ListItem button component={Link} to="/admin" key={"Home"} onClick={() => { console.log('Services') }}>
-            <ListItemIcon ><HomeIcon/></ListItemIcon>
-            <ListItemText primary={"Home"} />
-          </ListItem>
-
-          <ListItem button component={Link} to="/services" key={"Services"} onClick={() => { console.log('Services') }}>
-            <ListItemIcon ><LocalLaundryServiceIcon/></ListItemIcon>
-            <ListItemText primary={"Services"} />
-          </ListItem>
-
-          <ListItem button component={Link} to="/rooms" key={"Rooms"} onClick={() => { console.log('Rooms') }}>
-            <ListItemIcon ><MeetingRoomIcon/></ListItemIcon>
-            <ListItemText primary={"Rooms"} />
-          </ListItem>
-
-          <ListItem button component={Link} to="/accessgroups" key={"AccessGroups"} onClick={() => { console.log('Access Groups') }}>
-            <ListItemIcon ><VpnKeyIcon/></ListItemIcon>
-            <ListItemText primary={"Access Groups"} />
-          </ListItem>
-
-          <ListItem button component={Link} to="/users" key={"Users"} onClick={() => { console.log('Users') }}>
-            <ListItemIcon ><PersonIcon/></ListItemIcon>
-            <ListItemText primary={"Users"} />
-          </ListItem>
-
+          {adminListItems}
         </List>
         <Divider />
       </Drawer>
