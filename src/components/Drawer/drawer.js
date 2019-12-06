@@ -1,5 +1,5 @@
 
-import React, { forwardRef } from 'react';
+import React, { useState, forwardRef } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -12,16 +12,12 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import PersonIcon from '@material-ui/icons/Person';
-import LocalLaundryServiceIcon from '@material-ui/icons/LocalLaundryService';
-import HomeIcon from '@material-ui/icons/Home';
-import { Link as RouterLink } from 'react-router-dom';
-import { adminListItems } from './adminListItems';
+import { adminListItems, bookingListItems } from './ListItems';
+import Badge from '@material-ui/core/Badge';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import { Button } from '@material-ui/core';
+
+
 
 
 const drawerWidth = 240;
@@ -90,7 +86,9 @@ const useStyles = makeStyles(theme => ({
 export default function MiniDrawer() {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  const [admin, setAdmin] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -99,6 +97,10 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleAdmin = () => {
+    setAdmin(!admin);
+  }
 
   return (
     <>
@@ -124,6 +126,13 @@ export default function MiniDrawer() {
           <Typography variant="h6" noWrap>
             Admin
           </Typography>
+          <IconButton color="inherit">
+            <Badge badgeContent={0} color="secondary">
+              <Button onClick={handleAdmin}>
+                <NotificationsIcon />
+              </Button>
+            </Badge>
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -147,7 +156,8 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
-          {adminListItems}
+          {admin ? adminListItems : bookingListItems}
+
         </List>
         <Divider />
       </Drawer>

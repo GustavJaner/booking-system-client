@@ -10,6 +10,9 @@ import { Switch, Route } from "react-router-dom";
 import AdminUsers from "./containers/Admin/AdminUsers"
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
+import Bookingsite from './components/Bookings/BookingSite'
+import PageNotFound from './containers/404Page'
+import Dashboard from './containers/Dashboard/Dashboard.jsx';
 
 
 const useStyles = makeStyles(theme => ({
@@ -25,34 +28,30 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-
-
-
 const App = () => {
-
-
-  
   const classes = useStyles()
 
-  return(
-
+  return (
     <ApolloProvider client={client}>
-    <div className={classes.root}>
-      <CssBaseline />
-      <Navbar/>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer}>
-          <Switch>
-            <Route exact path='/admin' render={() => <AdminHome />} />
-            <Route exact path='/services' render={() => <AdminServices />} />
-            <Route exact path='/rooms' render={() => <AdminRooms />} />
-            <Route exact path='/accessgroups' render={() => <AdminAccessGroups />} />
-            <Route exact path='/users' render={() => <AdminUsers />} />
-          </Switch>
-        </div>
-      </main>
-    </div>
-  </ApolloProvider>
+      <div className={classes.root}>
+        <CssBaseline />
+        <Navbar />
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer}>
+            <Switch>
+              <Route exact path='/' render={() => <Dashboard />} />
+              <Route path='/booking' render={() => <Bookingsite />} />
+              <Route exact path='/admin' render={() => <AdminHome />} />
+              <Route exact path='/services' render={() => <AdminServices />} />
+              <Route exact path='/rooms' render={() => <AdminRooms />} />
+              <Route exact path='/accessgroups' render={() => <AdminAccessGroups />} />
+              <Route exact path='/users' render={() => <AdminUsers />} />
+              <Route component={PageNotFound} />
+            </Switch>
+          </div>
+        </main>
+      </div>
+    </ApolloProvider>
   )
 
 }
