@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const RoomList = ({ rooms = [] }) => {
+const RoomList = ({ rooms = [] ,toggle}) => {
   
   const classes = useStyles();
 
@@ -53,7 +53,7 @@ const RoomList = ({ rooms = [] }) => {
         
       </Select>
     </FormControl>
-    <EditRoomButton id={roomID} />
+    <EditRoomButton id={roomID} hideCreate={toggle}/>
     <DeleteRoomButton id={roomID} />
 
     </div>

@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import CreateRoomForm from "../../components/Room/CreateRoomForm"
 import Typography from '@material-ui/core/Typography';
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
+import useVisible from "../../components/GeneralHooks/useVisible";
 
 const useStyles = makeStyles(theme => ({
 
@@ -21,6 +22,7 @@ const AdminRooms = () => {
   const { rooms = [] } = useRooms()
   console.log(rooms)
   const classes = useStyles()
+  const { open, setFalse, toggle } = useVisible(true)
 
   return(
     <MuiThemeProvider>
@@ -30,8 +32,8 @@ const AdminRooms = () => {
         Rooms
       </Typography>
       <>
-        <RoomList rooms={rooms} />
-        <CreateRoomForm />
+        <RoomList rooms={rooms} toggle={toggle}/>
+        {open && <CreateRoomForm/>}
       </>
   </Paper>
   </MuiThemeProvider>

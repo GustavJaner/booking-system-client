@@ -28,6 +28,7 @@ const EditRoomForm = ({ id, onClose }) => {
     }
 
     await updateRoom(_room)
+    
     onClose()
   }
   if (loading || services.loading || accessgroups.loading)

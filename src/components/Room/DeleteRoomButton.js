@@ -5,11 +5,12 @@ import { Button } from "@material-ui/core"
 const DeleteRoomButton = ({ id }) => {
   const [removeRoom] = useRemoveRoom()
 
+
   return (
     <Button
       variant="contained"
       color="secondary"
-      onClick={() => removeRoom(id)}
+      onClick={() => id? removeRoom(id) :  null}
     >
       Remove Room
     </Button>
