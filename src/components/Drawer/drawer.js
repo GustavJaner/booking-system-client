@@ -124,7 +124,7 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Admin
+          {admin ? "EasyBooking" : "EasyBooking - Admin"}
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={0} color="secondary">
