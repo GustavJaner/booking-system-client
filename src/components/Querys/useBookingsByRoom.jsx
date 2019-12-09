@@ -12,7 +12,7 @@ export const GET_POST = gql`
   }
 `
 const useBookingsByRoom = ({ id }) => {
-  const { data, loading } = useQuery(GET_POST, { variables: { id }, pollInterval: 5000 })
+  const { data, loading } = useQuery(GET_POST, { variables: { id }, pollInterval: 500 })
 
   const bookings = dotProp.get(data, "bookingsByRoom", []);
 
