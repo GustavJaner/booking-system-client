@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 import dotProp from "dot-prop"
 
-export const GET_POST = gql`
+export const GET_BOOKINGS = gql`
   query bookingsByUser($id: ID!){
     bookingsByUser(id: $id) {
         id,
@@ -16,7 +16,7 @@ export const GET_POST = gql`
   }
 `
 const useBookingsByUser = ({ id }) => {
-  const { data, loading } = useQuery(GET_POST, { variables: { id }, pollInterval: 5000 })
+  const { data, loading } = useQuery(GET_BOOKINGS, { variables: { id }, pollInterval: 500 })
 
   const bookings = dotProp.get(data, "bookingsByUser", []);
 
@@ -24,3 +24,7 @@ const useBookingsByUser = ({ id }) => {
 }
 
 export default useBookingsByUser
+
+
+
+

@@ -14,12 +14,9 @@ function SelectDateTime({ room, date, changeDate, setTimeslot }) {
 
     const { bookings, loading } = useBookingsByRoom({ id: room.id });
 
-    const slots = () => {
-        return (moment(room.endTime, 'HH:mm').diff(moment(room.startTime, 'HH:mm'), 'minutes') / room.duration)
-    }
+    const slots = moment(room.end, 'HH:mm').diff(moment(room.start, 'HH:mm'), 'minutes') / room.duration;
 
     const disabledDates = () => {
-
         var fullDates = {};
         bookings.forEach(function (i) { fullDates[i.date] = (fullDates[i.date] || 0) + 1; });
 
