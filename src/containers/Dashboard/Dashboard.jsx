@@ -41,7 +41,9 @@ export default function Dashboard() {
         today.seconds = 0;
         today.minutes = 0;
         today.hours = 0;
-        return (moment(booking.date, 'DD-MM-YYYY') >= today);
+
+
+        return (moment(today).isSameOrAfter(booking.date));
     }
 
     if (loading) {
