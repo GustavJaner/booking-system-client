@@ -6,7 +6,8 @@ import SnackBar from "@material-ui/core/Snackbar"
 import {
   TextFieldAdapter,
   ReactSelectAdapter,
-  TimePickerWrapper
+  TimePickerWrapper,
+  DurationPickerWrapper
 } from "../FinalFormComponents/Form"
 import useServices from "../Services/useServices"
 import useCreateRoom from "./useCreateRoom"
@@ -22,6 +23,7 @@ const CreateRoomForm = () => {
   const access = useAccessGroups()
   const [open, setOpen] = useState(false);
 
+
   const handleClose = () => {
     setOpen(false);
   }
@@ -29,7 +31,8 @@ const CreateRoomForm = () => {
  
 
   const submitForm = async _room => {
-    _room.duration = parseInt(_room.duration)
+    _room.duration = (_room.duration.hour()*60) + _room.duration.minute();
+
     if(moment(_room.end, 'HH:mm').diff(moment(_room.start, 'HH:mm'), 'minutes') % _room.duration !== 0){
       setOpen(true);
     } else {
@@ -51,7 +54,7 @@ const CreateRoomForm = () => {
     <Form onSubmit={submitForm}>
       {props => (
         <form onSubmit={props.handleSubmit}>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} alignItems="center" alignContent="center">
             <Grid item xs={4}>
               <Field
                 name="name"
@@ -64,7 +67,7 @@ const CreateRoomForm = () => {
             <Field
                 name="start"
                 component={TimePickerWrapper}
-                floatingLabelText="First booking time"
+                floatingLabelText="Opening Time"
                 label="Start time"
                 //validate={required}
               />
@@ -73,7 +76,7 @@ const CreateRoomForm = () => {
               <Field
                 name="end"
                 component={TimePickerWrapper}
-                floatingLabelText="Last booking ends"
+                floatingLabelText="Closing Time"
                 validate={required}
                 label="End time"
               />
@@ -81,8 +84,8 @@ const CreateRoomForm = () => {
             <Grid item xs={4}>
               <Field
                 name="duration"
-                component={TextFieldAdapter}
-                floatingLabelText="Duration of a booking"
+                component={DurationPickerWrapper}
+                floatingLabelText="Duration"
                 validate={required}
               />
             </Grid>
@@ -90,14 +93,14 @@ const CreateRoomForm = () => {
               <Field
                 name="adress"
                 component={TextFieldAdapter}
-                floatingLabelText="Adress to the room"
+                floatingLabelText="Adress"
               />
             </Grid>
             <Grid item xs={4}>
               <Field
                 name="description"
                 component={TextFieldAdapter}
-                floatingLabelText="description of the room"
+                floatingLabelText="Description  "
               />
             </Grid>
             <Grid item xs={4}>
@@ -117,7 +120,6 @@ const CreateRoomForm = () => {
             <Grid item xs={4}>
               <>
                 <label>
-                  {" "}
                   Accessgroups
                   <Field
                     name="accessGroupIds"

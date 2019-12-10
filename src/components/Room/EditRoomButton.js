@@ -4,7 +4,7 @@ import EditRoomForm from "./EditRoomForm"
 import { Button } from "@material-ui/core"
 
 const EditRoomButton = ({ id ,hideCreate}) => {
-  const { open, setFalse, toggle } = useVisible()
+  const { open, toggle } = useVisible()
   const handlePress = () => {
     if(id){
     toggle()

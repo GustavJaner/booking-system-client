@@ -7,7 +7,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { access } from "fs";
 
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 
 const ServiceList = ({ accessGroups = [] }) => {
   
-  console.log()
   const classes = useStyles();
 
   const [accessgroupID, setAccessGroup] = React.useState('');
@@ -63,32 +61,3 @@ const ServiceList = ({ accessGroups = [] }) => {
   
 }
 export default ServiceList
-
-/*
-
-    <List>
-      {accessGroups.map(service => (
-        <ListItem key={service.id}>
-          {service.name}
-          <EditServiceButton id={service.id} />
-          <DeleteServiceButton id={service.id} />
-        </ListItem>
-      ))}
-    </List>
-
- <Grid item xs={4}>
-              <label>
-                Service
-                <Field
-                  name="serviceId"
-                  component={ReactSelectAdapter}
-                  options={services.services.map(service => ({
-                    label: service.name,
-                    value: service.id
-                  }))}
-                  validate={required}
-                />
-              </label>
-            </Grid>
-
-*/
