@@ -88,7 +88,7 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-  const [admin, setAdmin] = useState(true);
+  const [admin, setAdmin] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -124,7 +124,7 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-          {admin ? "EasyBooking - Admin" : "EasyBooking"}
+            {admin ? "EasyBooking - Admin" : "EasyBooking"}
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={0} color="secondary">

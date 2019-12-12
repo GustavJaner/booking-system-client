@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Bookingsite from './components/Bookings/BookingSite'
 import PageNotFound from './containers/404Page'
 import Dashboard from './containers/Dashboard/Dashboard.jsx';
+import SignInSide from './containers/SignIn/SigninSide'
 
 
 const useStyles = makeStyles(theme => ({
@@ -39,8 +40,9 @@ const App = () => {
         <main className={classes.content}>
           <div className={classes.appBarSpacer}>
             <Switch>
+              <Route exact path='/signin' render={() => <SignInSide />} />
               <Route exact path='/' render={() => <Dashboard />} />
-              <Route path='/booking' render={() => <Bookingsite />} />
+              <Route exact path='/booking' render={() => <Bookingsite />} />
               <Route exact path='/admin' render={() => <AdminHome />} />
               <Route exact path='/services' render={() => <AdminServices />} />
               <Route exact path='/rooms' render={() => <AdminRooms />} />

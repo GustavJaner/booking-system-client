@@ -38,14 +38,11 @@ export default function Dashboard() {
 
     const futureBooking = (booking) => {
         var today = moment();
-        today.seconds = 0;
-        today.minutes = 0;
-        today.hours = 0;
-
-
-        return (moment(today).isSameOrAfter(booking.date));
+        var date = moment(booking.date, 'DD-MM-YYYY')
+        return (date.isSameOrAfter(today));
     }
 
+    console.log(bookings);
     if (loading) {
         return <div className={classes.loading}> <CircularProgress /> </div>
     }
