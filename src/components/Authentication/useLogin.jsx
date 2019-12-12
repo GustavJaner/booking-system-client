@@ -1,31 +1,22 @@
 import gql from "graphql-tag"
 import { useMutation } from "@apollo/react-hooks"
 
-const GET_AUTHTOKEN = gql`
+const LOGIN_USER = gql`
   mutation login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
       token
       user {
-          username
-          id
+        username
+        id
       }
     }
   }
 `
 const useLogin = () => {
-    const [mutate, { loading }] = useMutation(GET_AUTHTOKEN)
-    const loginUser = userInfo =>
-        mutate({ variables: { ...userInfo } })
-    return [loginUser, { loading }]
+  const [mutate, { loading }] = useMutation(LOGIN_USER)
+  const loginUser = User => mutate({ variables: { ...User } })
+
+  return [loginUser, loading]
 }
 
-export default useLogin;
-
-
-
-
-
-
-
-
-
+export default useLogin
