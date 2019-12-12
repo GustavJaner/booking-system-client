@@ -62,10 +62,12 @@ export default function SignInSide() {
       username: "MaxDagerbratt",
       password: "123456"
     })
+
     console.log("login user", login.data.login.user)
     localStorage.setItem(USER_NAME, { ...login.data.login.user.username })
     localStorage.setItem(USER_ID, { ...login.data.login.user.id })
     localStorage.setItem(AUTH_TOKEN, login.data.login.token)
+    window.location.href = "/dashboard"
   }
   return (
     <Grid container component="main" className={classes.root}>

@@ -172,23 +172,27 @@ function BookingSite() {
 
         {activeStep === 0 && (
           <>
-            <InputLabel id="select-service">Select Service</InputLabel>
-            <Select
-              labelId="select-service"
-              options={getServicesOptions()}
-              onChange={e => setServiceId(e.value)}
-            />
+            <div style={{ zIndex: 1000 }}>
+              <InputLabel id="select-service">Select Service</InputLabel>
+              <Select
+                labelId="select-service"
+                options={getServicesOptions()}
+                onChange={e => setServiceId(e.value)}
+              />
+            </div>
           </>
         )}
         {activeStep === 1 && (
           <>
-            <InputLabel id="select-room">Select Room </InputLabel>
-            <Select
-              labelId="select-room"
-              id="select"
-              onChange={e => setSelectedRoomId(e.value)}
-              options={getRoomOptions()}
-            />
+            <div style={{ zIndex: 1000 }}>
+              <InputLabel id="select-room">Select Room </InputLabel>
+              <Select
+                labelId="select-room"
+                id="select"
+                onChange={e => setSelectedRoomId(e.value)}
+                options={getRoomOptions()}
+              />
+            </div>
           </>
         )}
 
