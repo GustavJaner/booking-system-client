@@ -20,23 +20,22 @@ const useStyles = makeStyles(theme => ({
 const AdminRooms = () => {
 
   const { rooms = [] } = useRooms()
-  console.log(rooms)
   const classes = useStyles()
-  const { open, setFalse, toggle } = useVisible(true)
+  const { open, toggle } = useVisible(true)
 
   return(
     <MuiThemeProvider>
 
-    <Paper className={classes.paper}>
-      <Typography variant="h6" noWrap>
-        Rooms
-      </Typography>
-      <>
-        <RoomList rooms={rooms} toggle={toggle}/>
-        {open && <CreateRoomForm/>}
-      </>
-  </Paper>
-  </MuiThemeProvider>
+      <Paper className={classes.paper}>
+        <Typography variant="h6" noWrap>
+          Rooms
+        </Typography>
+          <>
+          <RoomList rooms={rooms} toggle={toggle}/>
+          {open && <CreateRoomForm/>}
+          </>
+      </Paper>
+    </MuiThemeProvider>
   )
 }
 export default AdminRooms
