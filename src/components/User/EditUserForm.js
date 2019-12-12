@@ -9,14 +9,17 @@ import {
   TextFieldAdapter,
   ReactSelectAdapter
 } from "../FinalFormComponents/Form"
+import useAccessGroups from "../AccessGroups/useAccessGroups"
 
 const EditUserForm = ({ id, onClose }) => {
+  const accessGroupQuery = useAccessGroups()
   const handleSubmit = input => {
     console.log("input..", input)
     onClose()
   }
   const { user, loading } = useUser({ id })
-  if (loading) return <p> loading</p>
+  console.log(accessGroupQuery)
+  if (loading || accessGroupQuery.loading) return <p> loading</p>
   if (user) console.log("user", user)
   return (
     <>
@@ -24,8 +27,8 @@ const EditUserForm = ({ id, onClose }) => {
         onSubmit={handleSubmit}
         initialValues={{
           username: user.username,
-          role: user.role,
-          accessGroups: user.accessGroups
+          role: user.role
+          //accessGroups: user.accessGroups
         }}
       >
         {props => (
@@ -34,21 +37,19 @@ const EditUserForm = ({ id, onClose }) => {
               <Grid item xs={4}>
                 <Field
                   name="username"
-                  component="input"
+                  component={TextFieldAdapter}
                   disabled
                   floatingLabelText="Username"
                 />
                 <Field
                   name="role"
                   component="input"
-                  disabled
-                  floatingLabelText="Username"
-                />
-                <Field
-                  name="accessGroups"
-                  component="input"
-                  disabled
-                  floatingLabelText=""
+                  component={ReactSelectAdapter}
+                  isMulti
+                  options={[
+                    { value: "admin", label: "admin" },
+                    { value: "user", label: "user" }
+                  ]}
                 />
               </Grid>
             </Grid>

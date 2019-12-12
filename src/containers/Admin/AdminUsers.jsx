@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import useUsers from "../../components/Users/useUsers"
 import UserList from "../../components/Users/UserList"
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -21,12 +22,14 @@ const AdminUsers = () => {
   }
 
   return (
-    <Paper className={classes.paper}>
-      <Typography variant="h6" noWrap>
-        Users
-      </Typography>
-      <UserList users={users} />
-    </Paper>
+    <MuiThemeProvider>
+      <Paper className={classes.paper}>
+        <Typography variant="h6" noWrap>
+          Users
+        </Typography>
+        <UserList users={users} />
+      </Paper>
+    </MuiThemeProvider>
   )
 }
 export default AdminUsers
