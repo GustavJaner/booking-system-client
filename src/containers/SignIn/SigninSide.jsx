@@ -123,7 +123,6 @@ export default function SignInSide() {
           </form>
         </div>
       </Grid>
-      <button onClick={() => makeUser()}> Test </button>
     </Grid>
   )
 }
