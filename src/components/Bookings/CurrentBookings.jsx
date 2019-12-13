@@ -15,7 +15,7 @@ import { green } from "@material-ui/core/colors";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 //GraphlQL
-import useRemoveBooking from '../Mutations/useRemoveBooking';
+import useRemoveBooking from '../Booking/useRemoveBooking';
 
 
 const useStyles = makeStyles({

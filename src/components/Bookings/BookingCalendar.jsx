@@ -1,74 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { Grid, Typography, Button } from "@material-ui/core";
-import Calendar from 'rc-calendar';
+import React from "react";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import MomentUtils from '@date-io/moment';
 import moment from 'moment';
-//import "rc-calendar/assets/index.css"
 
 
-function BookingCalendar() {
+const TestBooking = ({ date, changeDate, fullDates }) => {
 
-
-
-    const [date, setDate] = useState(moment().format('DD MM YYYY'))
-    const [disabledDates, setDisabledDate] = useState()
-    const [test, setTest] = useState([])
-
-
-    function addTest(moment) {
-        console.log(moment);
-
-
-        test.push(moment);
-
-        console.log(date);
+    function disableFullDates(date) {
+        return date.format('DD-MM-YYYY') in fullDates;
     }
 
-
-
-    function disabledDate(current) {
-        const date = moment();
-
-        if (!current) {
-            // allow empty select
-            return false;
-        }
-        date.hour(0);
-        date.minute(0);
-        date.second(0);
-        if (current.valueOf() < date.valueOf()) {
-            return true;
-        } else {
-            return test.includes(current.format('DD MM YYYY'));
-        }
-
-
-    }
-
+    // prettier-ignore
     return (
         <>
-            <Grid container spacing={3}>
-                <Grid item xs={6}>
-                    <Calendar
-                        onSelect={e => setDate(e.format('DD MM YYYY'))}
-                        disabledDate={disabledDate}
+            <div>
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                    <DatePicker
+                        autoOk
+                        disablePast="true"
+                        format={'DD-MM-YYYY'}
+                        orientation="landscape"
+                        variant="static"
+                        openTo="date"
+                        value={date}
+                        shouldDisableDate={disableFullDates}
+                        onChange={changeDate}
                     />
-                </Grid>
-                <Grid item xs={6}>
-                    <Typography variant="h5" component="h3">
-                        {date}
-                    </Typography>
-                    <Button
-                        onClick={() => addTest(date)}
-                    >
-                        Test Button
-                    </Button>
-                </Grid>
-
-
-            </Grid>
+                </MuiPickersUtilsProvider>
+            </div>
         </>
-
     );
 };
 
-export default BookingCalendar;
+export default TestBooking;

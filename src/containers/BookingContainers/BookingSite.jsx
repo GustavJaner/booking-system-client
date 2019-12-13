@@ -5,22 +5,21 @@ import Step from "@material-ui/core/Step"
 import StepLabel from "@material-ui/core/StepLabel"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
-import LoadingAnimation from "../General/LoadingAnimation"
+import LoadingAnimation from "../../components/General/LoadingAnimation"
 import Container from "@material-ui/core/Container"
 import Paper from "@material-ui/core/Paper"
 import clsx from "clsx"
 import Select from "react-select"
-import SelectRoom from "../../containers/BookingContainers/SelectRoom"
-import SelectDateTime from "../../containers/BookingContainers/SelectDateTime"
+import SelectDateTime from "./SelectDateTime"
 import InputLabel from "@material-ui/core/InputLabel"
-import ConfirmBooking from "../../containers/BookingContainers/ConfirmBooking"
-import { AUTH_TOKEN, USER_NAME, USER_ID } from "../../constants"
+import ConfirmBooking from "../../components/Bookings/ConfirmBooking"
 import moment from "moment"
 
+
 //GraphQL Imports
-import useAddBooking from "../Mutations/useAddBooking"
-import useServices from "../Services/useServices"
-import useRooms from "../Rooms/useRooms"
+import useAddBooking from "../../components/Booking/useAddBooking"
+import useServices from "../../components/Services/useServices"
+import useRooms from "../../components/Rooms/useRooms"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -89,7 +88,6 @@ function BookingSite() {
 
   const [date, changeDate] = useState(moment())
   const [timeslot, setTimeslot] = useState(null)
-  const [room, setRoom] = useState(null)
   const [selectedRoomId, setSelectedRoomId] = useState(null)
   const [createBooking] = useAddBooking()
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
@@ -134,7 +132,7 @@ function BookingSite() {
       date: date.format("DD-MM-YYYY"),
       roomId: selectedRoomId
     })
-    handleNext()
+    handleNext();
   }
 
   const nextDisabled = () => {
@@ -148,9 +146,10 @@ function BookingSite() {
       case 3:
         return false
       default:
-        return false
+        return true
     }
   }
+
 
   if (servicesQuery.loading || roomsQuery.loading) {
     return <LoadingAnimation />
@@ -195,7 +194,6 @@ function BookingSite() {
             </div>
           </>
         )}
-
         {activeStep === 2 && (
           <SelectDateTime
             roomId={selectedRoomId}
@@ -223,7 +221,7 @@ function BookingSite() {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={activeStep === 2 ? sendBooking : handleNext}
+                onClick={activeStep === 3 ? sendBooking : handleNext}
                 disabled={nextDisabled()}
               >
                 {activeStep === steps.length - 1 ? "Confirm" : "Next"}

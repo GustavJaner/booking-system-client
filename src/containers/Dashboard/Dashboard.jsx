@@ -9,7 +9,7 @@ import Paper from "@material-ui/core/Paper"
 
 import CircularProgress from "@material-ui/core/CircularProgress"
 
-import useBookingsByUser from "../../components/Querys/useBookingsByUser"
+import useBookingsByUser from "../../components/Bookings/useBookingsByUser"
 import CurrentBookings from "../../components/Bookings/CurrentBookings"
 
 const useStyles = makeStyles(theme => ({
@@ -38,7 +38,7 @@ export default function Dashboard() {
   const futureBooking = booking => {
     var today = moment()
     var date = moment(booking.date, "DD-MM-YYYY")
-    return date.isSameOrAfter(today)
+    return date.isSameOrAfter(today, 'day')
   }
 
   console.log("bookings..", bookings)
@@ -61,15 +61,15 @@ export default function Dashboard() {
                 if (futureBooking(booking))
                   return (
                     <CurrentBookings
-                      key={booking.date.toString()}
+                      key={booking.date + booking.room.name + booking.startTime}
                       booking={booking}
                     />
                   )
               })}
             </Paper>
           ) : (
-            <p> No bookings </p>
-          )}
+              <p> No bookings </p>
+            )}
         </Grid>
       </Grid>
     </Container>

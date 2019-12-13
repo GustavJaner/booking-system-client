@@ -3,10 +3,10 @@ import Grid from "@material-ui/core/Grid"
 import CircularProgress from "@material-ui/core/CircularProgress"
 import moment from "moment"
 //Component imports
-import TestBooking from "../../components/Bookings/TestBooking"
+import BookingCalendar from "../../components/Bookings/BookingCalendar"
 import DateTimeslots from "../../components/Bookings/DateTimeslots"
 //GraphQL imports
-import useBookingsByRoom from "../../components/Querys/useBookingsByRoom"
+import useBookingsByRoom from "../../components/Bookings/useBookingsByRoom"
 import dotProp from "dot-prop"
 import useRoom from "../../components/Room/useRoom"
 
@@ -25,7 +25,7 @@ function SelectDateTime({ roomId, date, changeDate, setTimeslot }) {
 
   const disabledDates = () => {
     var fullDates = {}
-    bookings.forEach(function(i) {
+    bookings.forEach(function (i) {
       fullDates[i.date] = (fullDates[i.date] || 0) + 1
     })
 
@@ -40,7 +40,7 @@ function SelectDateTime({ roomId, date, changeDate, setTimeslot }) {
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} md={7} lg={7}>
-        <TestBooking
+        <BookingCalendar
           date={date}
           changeDate={changeDate}
           fullDates={disabledDates()}

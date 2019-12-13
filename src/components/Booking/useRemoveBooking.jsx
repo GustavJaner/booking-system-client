@@ -1,6 +1,5 @@
 import gql from "graphql-tag"
 import { useMutation } from "@apollo/react-hooks"
-import { GET_BOOKINGS } from "../Querys/useBookingsByUser"
 
 const REMOVE_BOOKING = gql`
   mutation removeBooking($id: ID!) {
