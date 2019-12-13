@@ -6,6 +6,10 @@ export const GET_ROOMS = gql`
     rooms {
       name
       id
+      service {
+        name
+        id
+      }
     }
   }
 `

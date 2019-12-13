@@ -4,11 +4,13 @@ import { HttpLink } from "apollo-link-http"
 import { getMainDefinition } from "apollo-utilities"
 import { WebSocketLink } from "apollo-link-ws"
 import { InMemoryCache } from "apollo-cache-inmemory"
-const cache = new InMemoryCache()
+import { setContext } from "apollo-link-context"
+import { AUTH_TOKEN } from "../constants"
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: "http://localhost:5000/graphql"
+  uri: "http://localhost:5000/graphql",
+  credentials: "same-origin"
 })
 
 // Create a WebSocket link:
@@ -16,6 +18,17 @@ const wsLink = new WebSocketLink({
   uri: `ws://localhost:5000/graphql`,
   options: {
     reconnect: true
+  }
+})
+
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem(AUTH_TOKEN)
+  console.log("token:", token)
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ""
+    }
   }
 })
 
@@ -31,10 +44,10 @@ const link = split(
     )
   },
   wsLink,
-  httpLink
+  authLink.concat(httpLink)
 )
 const client = new ApolloClient({
-  link,
-  cache
+  cache: new InMemoryCache(),
+  link
 })
 export default client

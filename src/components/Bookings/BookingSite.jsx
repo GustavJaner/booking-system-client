@@ -1,180 +1,239 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import LoadingAnimation from '../General/LoadingAnimation';
-import Container from '@material-ui/core/Container';
-import Paper from '@material-ui/core/Paper';
-import clsx from 'clsx';
-
-import SelectRoom from '../../containers/BookingContainers/SelectRoom'
-import SelectDateTime from '../../containers/BookingContainers/SelectDateTime'
-import ConfirmBooking from '../../containers/BookingContainers/ConfirmBooking'
-
-import moment from 'moment';
+import React, { useState } from "react"
+import { makeStyles } from "@material-ui/core/styles"
+import Stepper from "@material-ui/core/Stepper"
+import Step from "@material-ui/core/Step"
+import StepLabel from "@material-ui/core/StepLabel"
+import Button from "@material-ui/core/Button"
+import Typography from "@material-ui/core/Typography"
+import LoadingAnimation from "../General/LoadingAnimation"
+import Container from "@material-ui/core/Container"
+import Paper from "@material-ui/core/Paper"
+import clsx from "clsx"
+import Select from "react-select"
+import SelectRoom from "../../containers/BookingContainers/SelectRoom"
+import SelectDateTime from "../../containers/BookingContainers/SelectDateTime"
+import InputLabel from "@material-ui/core/InputLabel"
+import ConfirmBooking from "../../containers/BookingContainers/ConfirmBooking"
+import { AUTH_TOKEN, USER_NAME, USER_ID } from "../../constants"
+import moment from "moment"
 
 //GraphQL Imports
-import useRoomByServiceId from '../Querys/useRoomByService';
-import useAddBooking from '../Mutations/useAddBooking';
-
-
-const tempUserId = "5de3c20b7895eaf4c9c3241d";
-
+import useAddBooking from "../Mutations/useAddBooking"
+import useServices from "../Services/useServices"
+import useRooms from "../Rooms/useRooms"
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        width: '100%',
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
-    },
-    backButton: {
-        marginRight: theme.spacing(1),
-    },
-    instructions: {
-        marginTop: theme.spacing(1),
-        marginBottom: theme.spacing(1),
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
-    stepper: {
-        marginBottom: '50px'
-    },
-    paper: {
-        padding: theme.spacing(2),
-        display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
-    },
-    fixedHeight: {
-        minHeight: 240,
-    },
-}));
+  root: {
+    width: "100%",
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4)
+  },
+  backButton: {
+    marginRight: theme.spacing(1)
+  },
+  instructions: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1)
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2)
+  },
+  stepper: {
+    marginBottom: "50px"
+  },
+  paper: {
+    padding: theme.spacing(2),
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column"
+  },
+  fixedHeight: {
+    minHeight: 240
+  }
+}))
 
 function getSteps() {
-    return ['Select a room', 'Select date and timeslot', 'Confirm booking'];
+  return [
+    "Select a service",
+    "Select a room",
+    "Select date and timeslot",
+    "Confirm booking"
+  ]
 }
 
 function getStepContent(stepIndex) {
-    switch (stepIndex) {
-        case 0:
-            return 'Select room to continue';
-        case 1:
-            return 'Select date and time to continue';
-        case 2:
-            return 'Click confirm to make your booking';
-        default:
-            return 'Booking confirmed!';
-    }
+  switch (stepIndex) {
+    case 0:
+      return "Select service to continue"
+    case 1:
+      return "Select room to continue"
+    case 2:
+      return "Select date and time to continue"
+    case 3:
+      return "Click confirm to make your booking"
+    default:
+      return "Booking confirmed!"
+  }
 }
 
 function BookingSite() {
-    const classes = useStyles();
-    //Stepper states & buttons
-    const [activeStep, setActiveStep] = React.useState(0);
-    const steps = getSteps();
-    //Booking information
-    const { rooms, loading } = useRoomByServiceId({ id: "5ddd02e254410b2d9aeffeb1" });
-    const [date, changeDate] = useState(moment());
-    const [timeslot, setTimeslot] = useState(null);
-    const [room, setRoom] = useState(null);
-    const [createBooking] = useAddBooking();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const classes = useStyles()
+  //Stepper states & buttons
+  const [activeStep, setActiveStep] = React.useState(0)
+  const [serviceId, setServiceId] = useState(null)
+  const steps = getSteps()
+  //Booking information
 
-    //Next stepper stage
-    const handleNext = () => {
-        setActiveStep(prevActiveStep => prevActiveStep + 1);
-    };
-    //Previous stepper stage
-    const handleBack = () => {
-        setActiveStep(prevActiveStep => prevActiveStep - 1);
-    };
+  const servicesQuery = useServices()
+  const roomsQuery = useRooms()
 
-    //Turn all booking information into a single object and add the booking to the database
-    const makeBooking = () => {
-        return ({
-            startTime: timeslot.start,
-            endTime: timeslot.end,
-            date: date.format('DD-MM-YYYY'),
-            userId: tempUserId,
-            roomId: room.id
-        });
+  const [date, changeDate] = useState(moment())
+  const [timeslot, setTimeslot] = useState(null)
+  const [room, setRoom] = useState(null)
+  const [selectedRoomId, setSelectedRoomId] = useState(null)
+  const [createBooking] = useAddBooking()
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
+
+  //Next stepper stage
+  const handleNext = () => {
+    setActiveStep(prevActiveStep => prevActiveStep + 1)
+  }
+  //Previous stepper stage
+  const handleBack = () => {
+    setActiveStep(prevActiveStep => prevActiveStep - 1)
+  }
+
+  //Turn all booking information into a single object and add the booking to the database
+  const makeBooking = () => {
+    return {
+      startTime: timeslot.start,
+      endTime: timeslot.end,
+      date: date.format("DD-MM-YYYY"),
+      roomId: selectedRoomId
     }
+  }
+  const getRoomOptions = () => {
+    return roomsQuery.rooms
+      .filter(room => room.service && room.service.id === serviceId)
+      .map(room => ({
+        label: room.name,
+        value: room.id
+      }))
+  }
 
-    const sendBooking = () => {
-        createBooking({
-            startTime: timeslot.start,
-            endTime: timeslot.end,
-            date: date.format('DD-MM-YYYY'),
-            userId: tempUserId,
-            roomId: room.id
-        });
-        handleNext();
+  const getServicesOptions = () => {
+    return servicesQuery.services.map(service => ({
+      label: service.name,
+      value: service.id
+    }))
+  }
+  const sendBooking = () => {
+    createBooking({
+      startTime: timeslot.start,
+      endTime: timeslot.end,
+      date: date.format("DD-MM-YYYY"),
+      roomId: selectedRoomId
+    })
+    handleNext()
+  }
+
+  const nextDisabled = () => {
+    switch (activeStep) {
+      case 0:
+        return serviceId ? false : true
+      case 1:
+        return selectedRoomId ? false : true
+      case 2:
+        return date instanceof moment && timeslot != null ? false : true
+      case 3:
+        return false
+      default:
+        return false
     }
+  }
 
-    const nextDisabled = () => {
-        switch (activeStep) {
-            case 0:
-                return (room == null ? true : false);
-            case 1:
-                return (date instanceof moment && timeslot != null ? false : true);
-            case 2:
-                return false;
-            default:
-                return true;
-        }
-    }
+  if (servicesQuery.loading || roomsQuery.loading) {
+    return <LoadingAnimation />
+  }
+  return (
+    <Container maxWidth="lg" className={classes.root}>
+      <Paper className={fixedHeightPaper}>
+        <Stepper
+          activeStep={activeStep}
+          alternativeLabel
+          className={classes.stepper}
+        >
+          {steps.map(label => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
 
-    if (loading) {
-        return <LoadingAnimation />
-    }
+        {activeStep === 0 && (
+          <>
+            <div style={{ zIndex: 1000 }}>
+              <InputLabel id="select-service">Select Service</InputLabel>
+              <Select
+                labelId="select-service"
+                options={getServicesOptions()}
+                onChange={e => setServiceId(e.value)}
+              />
+            </div>
+          </>
+        )}
+        {activeStep === 1 && (
+          <>
+            <div style={{ zIndex: 1000 }}>
+              <InputLabel id="select-room">Select Room </InputLabel>
+              <Select
+                labelId="select-room"
+                id="select"
+                onChange={e => setSelectedRoomId(e.value)}
+                options={getRoomOptions()}
+              />
+            </div>
+          </>
+        )}
 
-    return (
-        <Container maxWidth="lg" className={classes.root}>
-            <Paper className={fixedHeightPaper}>
-                <Stepper activeStep={activeStep} alternativeLabel className={classes.stepper}>
-                    {steps.map(label => (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
-                {(activeStep === 0) && (
-                    <SelectRoom rooms={rooms} setRoom={setRoom} />
-                )}
-                {(activeStep === 1) && (
-                    <SelectDateTime room={room} date={date} changeDate={changeDate} setTimeslot={setTimeslot} />
-                )}
-                {(activeStep >= 2) && (
-                    <ConfirmBooking booking={makeBooking()} room={room} />
-                )}
-                <div>
-                    <div>
-                        <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
-                        <div>
-                            <Button
-                                disabled={activeStep === 0}
-                                onClick={handleBack}
-                                className={classes.backButton}
-                            >
-                                Back
-                        </Button>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={activeStep === 2 ? sendBooking : handleNext}
-                                disabled={nextDisabled()}>
-                                {activeStep === steps.length - 1 ? 'Confirm' : 'Next'}
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-            </Paper>
-        </Container>
-    );
-};
+        {activeStep === 2 && (
+          <SelectDateTime
+            roomId={selectedRoomId}
+            date={date}
+            changeDate={changeDate}
+            setTimeslot={setTimeslot}
+          />
+        )}
+        {activeStep >= 3 && (
+          <ConfirmBooking booking={makeBooking()} roomId={selectedRoomId} />
+        )}
+        <div>
+          <div>
+            <Typography className={classes.instructions}>
+              {getStepContent(activeStep)}
+            </Typography>
+            <div>
+              <Button
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                className={classes.backButton}
+              >
+                Back
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={activeStep === 2 ? sendBooking : handleNext}
+                disabled={nextDisabled()}
+              >
+                {activeStep === steps.length - 1 ? "Confirm" : "Next"}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Paper>
+    </Container>
+  )
+}
 
-export default BookingSite;
+export default BookingSite

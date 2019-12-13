@@ -6,46 +6,66 @@ import Navbar from "./components/Drawer/drawer"
 import AdminAccessGroups from "./containers/Admin/AdminAccessGroups"
 import AdminRooms from "./containers/Admin/AdminRooms"
 import AdminServices from "./containers/Admin/AdminServices"
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom"
 import AdminUsers from "./containers/Admin/AdminUsers"
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { makeStyles } from '@material-ui/core/styles';
-import Bookingsite from './components/Bookings/BookingSite'
-import PageNotFound from './containers/404Page'
-import Dashboard from './containers/Dashboard/Dashboard.jsx';
-
+import CssBaseline from "@material-ui/core/CssBaseline"
+import { makeStyles } from "@material-ui/core/styles"
+import Bookingsite from "./components/Bookings/BookingSite"
+import PageNotFound from "./containers/404Page"
+import Dashboard from "./containers/Dashboard/Dashboard.jsx"
+import SignInSide from "./containers/SignIn/SigninSide"
+import { AUTH_TOKEN } from "./constants"
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
+    display: "flex"
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
     marginTop: theme.spacing(6)
   },
-  appBarSpacer: theme.mixins.toolbar,
-
-}));
+  appBarSpacer: theme.mixins.toolbar
+}))
 
 const App = () => {
+  const [token, setToken] = React.useState(null)
+  let auth = localStorage.getItem(AUTH_TOKEN)
+  if (auth && !token) {
+    setToken(auth)
+  }
+  console.log(token)
   const classes = useStyles()
 
   return (
     <ApolloProvider client={client}>
       <div className={classes.root}>
         <CssBaseline />
-        <Navbar />
+        {token && <Navbar />}
+
         <main className={classes.content}>
           <div className={classes.appBarSpacer}>
             <Switch>
-              <Route exact path='/' render={() => <Dashboard />} />
-              <Route path='/booking' render={() => <Bookingsite />} />
-              <Route exact path='/admin' render={() => <AdminHome />} />
-              <Route exact path='/services' render={() => <AdminServices />} />
-              <Route exact path='/rooms' render={() => <AdminRooms />} />
-              <Route exact path='/accessgroups' render={() => <AdminAccessGroups />} />
-              <Route exact path='/users' render={() => <AdminUsers />} />
+              <Route exact path="/" render={() => <SignInSide />} />
+              {token && (
+                <>
+                  <Route exact path="/dashboard" render={() => <Dashboard />} />
+                  <Route exact path="/booking" render={() => <Bookingsite />} />
+                  <Route exact path="/admin" render={() => <AdminHome />} />
+                  <Route
+                    exact
+                    path="/services"
+                    render={() => <AdminServices />}
+                  />
+                  <Route exact path="/rooms" render={() => <AdminRooms />} />
+                  <Route
+                    exact
+                    path="/accessgroups"
+                    render={() => <AdminAccessGroups />}
+                  />
+                  <Route exact path="/users" render={() => <AdminUsers />} />
+                </>
+              )}
               <Route component={PageNotFound} />
             </Switch>
           </div>
@@ -53,7 +73,6 @@ const App = () => {
       </div>
     </ApolloProvider>
   )
-
 }
 
 export default App

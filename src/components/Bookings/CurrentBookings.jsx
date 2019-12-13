@@ -96,7 +96,7 @@ function CurrentBookings({ booking }) {
 
     const classes = useStyles();
     const [removeBooking, { data }] = useRemoveBooking();
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
     const handleDelete = () => {
         removeBooking({ id: booking.id });
