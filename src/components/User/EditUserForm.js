@@ -38,20 +38,27 @@ const EditUserForm = ({ id, onClose }) => {
                 <Field
                   name="username"
                   component={TextFieldAdapter}
-                  disabled
                   floatingLabelText="Username"
                 />
-                <Field
-                  name="role"
-                  component="input"
-                  component={ReactSelectAdapter}
-                  isMulti
-                  options={[
-                    { value: "admin", label: "admin" },
-                    { value: "user", label: "user" }
-                  ]}
-                />
               </Grid>
+              <Grid item xs={4}>
+                <label>
+                  Role
+                  <Field
+                    name="role"
+                    component="input"
+                    component={ReactSelectAdapter}
+                    isMulti
+                    options={[
+                      { value: "admin", label: "admin" },
+                      { value: "user", label: "user" }
+                    ]}
+                  />
+                </label>
+              </Grid>
+
+              <Grid item xs={4}></Grid>
+              <Grid item xs={4}></Grid>
             </Grid>
           </form>
         )}
