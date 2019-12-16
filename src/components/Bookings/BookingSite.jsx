@@ -223,7 +223,7 @@ function BookingSite() {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={activeStep === 2 ? sendBooking : handleNext}
+                onClick={activeStep === 3 ? sendBooking : handleNext}
                 disabled={nextDisabled()}
               >
                 {activeStep === steps.length - 1 ? "Confirm" : "Next"}
