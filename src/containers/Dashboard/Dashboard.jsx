@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import clsx from "clsx"
 import { makeStyles } from "@material-ui/core/styles"
 import moment from "moment"
@@ -9,7 +9,9 @@ import Paper from "@material-ui/core/Paper"
 
 import CircularProgress from "@material-ui/core/CircularProgress"
 
+import RemoveBookningSnackbar from '../../components/General/RemoveBookingSnackbar'
 import useBookingsByUser from "../../components/Bookings/useBookingsByUser"
+import useRemoveBooking from "../../components/Booking/useRemoveBooking"
 import CurrentBookings from "../../components/Bookings/CurrentBookings"
 
 const useStyles = makeStyles(theme => ({
@@ -30,10 +32,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard() {
   const classes = useStyles()
-
-  const { bookings, loading } = useBookingsByUser()
-
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
+
+  const [removeBooking, { error }] = useRemoveBooking();
+  const { bookings, loading } = useBookingsByUser()
+  const [open, setOpen] = useState(false);
+
+  function handleDelete(booking) {
+    removeBooking({ id: booking.id });
+    setOpen(true);
+  }
 
   const futureBooking = booking => {
     var today = moment()
@@ -41,7 +49,6 @@ export default function Dashboard() {
     return date.isSameOrAfter(today, 'day')
   }
 
-  console.log("bookings..", bookings)
   if (loading) {
     return (
       <div className={classes.loading}>
@@ -61,8 +68,9 @@ export default function Dashboard() {
                 if (futureBooking(booking))
                   return (
                     <CurrentBookings
-                      key={booking.date + booking.room.name + booking.startTime}
+                      key={booking.id}
                       booking={booking}
+                      handleDelete={handleDelete}
                     />
                   )
               })}
@@ -72,6 +80,7 @@ export default function Dashboard() {
             )}
         </Grid>
       </Grid>
+      <RemoveBookningSnackbar open={open} setOpen={setOpen} error={error} />
     </Container>
   )
 }

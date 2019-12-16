@@ -23,7 +23,6 @@ const wsLink = new WebSocketLink({
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem(AUTH_TOKEN)
-  console.log("token:", token)
   return {
     headers: {
       ...headers,

@@ -19,7 +19,6 @@ const useBookingsByUser = () => {
   const { data, loading } = useQuery(GET_BOOKINGS, {
     pollInterval: 500
   })
-  console.log("bookingsbyuser", data)
 
   const bookings = dotProp.get(data, "bookingsByUser", [])
 
