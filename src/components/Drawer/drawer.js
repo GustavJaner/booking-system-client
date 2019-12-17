@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -14,11 +14,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { adminListItems, bookingListItems } from './ListItems';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
-
-
-
 
 const drawerWidth = 240;
 
@@ -108,14 +103,6 @@ export default function MiniDrawer() {
       return(console.log(admin))
     }
   }
-
-  const adminHomeLink = forwardRef((props, ref) => (
-    <Link innerRef={ref} to="/admin" {...props} />
-  ));
-
-  const bookingHomeLink = forwardRef((props, ref) => (
-    <Link innerRef={ref} to="/" {...props} />
-  ));
 
   return (
     <>
