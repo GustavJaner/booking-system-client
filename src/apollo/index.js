@@ -15,7 +15,7 @@ const httpLink = new HttpLink({
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://ec2-3-124-216-23.eu-central-1.compute.amazonaws.com/graphql`,
+  uri: `wss://ec2-3-124-216-23.eu-central-1.compute.amazonaws.com/graphql`,
   options: {
     reconnect: true
   }
