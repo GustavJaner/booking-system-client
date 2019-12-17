@@ -11,12 +11,21 @@ import dotProp from "dot-prop"
 import useRoom from "../../components/Room/useRoom"
 
 function SelectDateTime({ roomId, date, changeDate, setTimeslot }) {
-  const bookingsQuery = useBookingsByRoom({ id: roomId })
+  const {
+    bookings = [],
+    subscribeToBookingUpdates,
+    loading
+  } = useBookingsByRoom({ id: roomId })
+
+  React.useEffect(() => {
+    subscribeToBookingUpdates()
+  }, [])
+
   const roomQuery = useRoom({ id: roomId })
-  if (bookingsQuery.loading || roomQuery.loading) {
+  if (loading || roomQuery.loading) {
     return <CircularProgress />
   }
-  const bookings = dotProp.get(bookingsQuery, "bookings")
+  //const bookings = dotProp.get(bookingsQuery, "bookings")
   const room = dotProp.get(roomQuery, "room")
 
   const slots =

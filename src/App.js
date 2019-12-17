@@ -54,7 +54,7 @@ const App = () => {
   if (auth && !token) {
     setToken(auth)
   }
-  console.log(token)
+  //  console.log(token)
   const classes = useStyles()
 
   return (

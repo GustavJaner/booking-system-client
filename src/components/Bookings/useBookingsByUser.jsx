@@ -10,6 +10,7 @@ export const GET_BOOKINGS = gql`
       endTime
       date
       room {
+        id
         name
       }
     }

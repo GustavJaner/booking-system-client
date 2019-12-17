@@ -4,7 +4,9 @@ import { GET_POSTS } from "../Posts/usePosts"
 
 const DELETE_POST = gql`
   mutation removePost($id: ID!) {
-    removePost(id: $id)
+    removePost(id: $id) {
+      id
+    }
   }
 `
 const useRemovePost = () => {

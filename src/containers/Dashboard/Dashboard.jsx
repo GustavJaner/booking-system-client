@@ -34,11 +34,13 @@ export default function Dashboard() {
   const classes = useStyles()
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
-  const [removeBooking, { error }] = useRemoveBooking();
+  const [bookingId, setBookingId] = useState(null)
+  const [removeBooking, { error }] = useRemoveBooking({ id: bookingId });
   const { bookings, loading } = useBookingsByUser()
   const [open, setOpen] = useState(false);
 
-  function handleDelete(booking) {
+  async function handleDelete(booking) {
+    await setBookingId(booking.room.id);
     removeBooking({ id: booking.id });
     setOpen(true);
   }

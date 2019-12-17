@@ -89,7 +89,7 @@ function BookingSite() {
   const [date, changeDate] = useState(moment())
   const [timeslot, setTimeslot] = useState(null)
   const [selectedRoomId, setSelectedRoomId] = useState(null)
-  const [createBooking] = useAddBooking()
+  const [createBooking] = useAddBooking({ id: selectedRoomId })
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
   //Next stepper stage
