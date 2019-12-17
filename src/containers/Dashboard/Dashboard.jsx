@@ -33,7 +33,7 @@ export default function Dashboard() {
     const classes = useStyles();
 
     const { bookings, loading } = useBookingsByUser({ id: "5de3c20b7895eaf4c9c3241d" });
-
+    console.log("bookings:",bookings)
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
     const futureBooking = (booking) => {
@@ -55,8 +55,9 @@ export default function Dashboard() {
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <Paper className={fixedHeightPaper}>
-                        {bookings.map((booking) => {
+                        {bookings.length >0 && bookings.map((booking) => {
                             if (futureBooking(booking))
+                                console.log("booking..",booking)
                                 return <CurrentBookings key={booking.date.toString()} booking={booking} />
                         })}
                     </Paper>

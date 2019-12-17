@@ -40,12 +40,12 @@ const App = () => {
           <div className={classes.appBarSpacer}>
             <Switch>
               <Route exact path='/' render={() => <Dashboard />} />
-              <Route path='/booking' render={() => <Bookingsite />} />
+              <Route exact path='/booking' render={() => <Bookingsite />} />
               <Route exact path='/admin' render={() => <AdminHome />} />
-              <Route exact path='/services' render={() => <AdminServices />} />
-              <Route exact path='/rooms' render={() => <AdminRooms />} />
-              <Route exact path='/accessgroups' render={() => <AdminAccessGroups />} />
-              <Route exact path='/users' render={() => <AdminUsers />} />
+              <Route path='/admin/services' render={() => <AdminServices />} />
+              <Route path='/admin/rooms' render={() => <AdminRooms />} />
+              <Route path='/admin/accessgroups' render={() => <AdminAccessGroups />} />
+              <Route path='/admin/users' render={() => <AdminUsers />} />
               <Route component={PageNotFound} />
             </Switch>
           </div>

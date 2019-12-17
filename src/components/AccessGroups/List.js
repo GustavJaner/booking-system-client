@@ -7,7 +7,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { access } from "fs";
 
 
 const useStyles = makeStyles(theme => ({
@@ -20,9 +19,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ServiceList = ({ accessGroups = [] }) => {
+const AccessGroupList = ({ accessGroups = [] }) => {
   
-  console.log()
   const classes = useStyles();
 
   const [accessgroupID, setAccessGroup] = React.useState('');
@@ -62,7 +60,7 @@ const ServiceList = ({ accessGroups = [] }) => {
   )
   
 }
-export default ServiceList
+export default AccessGroupList
 
 /*
 

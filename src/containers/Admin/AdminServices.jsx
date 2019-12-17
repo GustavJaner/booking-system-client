@@ -5,6 +5,7 @@ import useServices from "../../components/Services/useServices"
 import ServiceList from "../../components/Services/List"
 import CreateService from "../../components/Service/CreateService"
 import Typography from '@material-ui/core/Typography';
+import ServiceCards from "../../components/Services/ServiceCards";
 
 const useStyles = makeStyles(theme => ({
 
@@ -26,13 +27,12 @@ const AdminServices = () => {
       <Typography variant="h6" noWrap>
         Services
       </Typography>
-        <>
-          <ServiceList services={services} />
-          <CreateService />
-        </>
+      <br/>
+      <ServiceCards services={services} />
     </Paper>
   )
 }
 export default AdminServices
 
-
+/*<ServiceList services={services} />
+          <CreateService />*/

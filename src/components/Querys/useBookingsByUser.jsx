@@ -16,7 +16,7 @@ export const GET_BOOKINGS = gql`
   }
 `
 const useBookingsByUser = ({ id }) => {
-  const { data, loading } = useQuery(GET_BOOKINGS, { variables: { id }, pollInterval: 500 })
+  const { data, loading } = useQuery(GET_BOOKINGS, { variables: { id }, pollInterval: 50 })
 
   const bookings = dotProp.get(data, "bookingsByUser", []);
 

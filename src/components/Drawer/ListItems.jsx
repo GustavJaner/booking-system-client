@@ -13,19 +13,19 @@ const adminHomeLink = forwardRef((props, ref) => (
   <Link innerRef={ref} to="/admin" {...props} />
 ));
 const adminServiceLink = forwardRef((props, ref) => (
-  <Link innerRef={ref} to="/services" {...props} />
+  <Link innerRef={ref} to="/admin/services" {...props} />
 ));
 
 const adminRoomLink = forwardRef((props, ref) => (
-  <Link innerRef={ref} to="/rooms" {...props} />
+  <Link innerRef={ref} to="/admin/rooms" {...props} />
 ));
 
 const adminAccessGroupLink = forwardRef((props, ref) => (
-  <Link innerRef={ref} to="/accessgroups" {...props} />
+  <Link innerRef={ref} to="/admin/accessgroups" {...props} />
 ));
 
 const adminUserLink = forwardRef((props, ref) => (
-  <Link innerRef={ref} to="/users" {...props} />
+  <Link innerRef={ref} to="/admin/users" {...props} />
 ));
 
 const BookingLink = forwardRef((props, ref) => (

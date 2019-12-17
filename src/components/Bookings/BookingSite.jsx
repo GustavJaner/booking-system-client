@@ -95,6 +95,7 @@ function BookingSite() {
 
     //Turn all booking information into a single object and add the booking to the database
     const makeBooking = () => {
+        
         return ({
             startTime: timeslot.start,
             endTime: timeslot.end,
