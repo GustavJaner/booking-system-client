@@ -3,6 +3,7 @@ import { Form, Field } from "react-final-form"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import SnackBar from "@material-ui/core/Snackbar"
+import CircularProgress from '@material-ui/core/CircularProgress'
 import {
   TextFieldAdapter,
   ReactSelectAdapter,
@@ -48,7 +49,7 @@ const CreateRoomForm = () => {
     }
   }
 
-  if (services.loading || access.loading) return <p> loading</p>
+  if (services.loading || access.loading) return <div> <CircularProgress /> </div>
   return (
     <>
     <Form onSubmit={submitForm}>

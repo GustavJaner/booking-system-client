@@ -14,6 +14,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { adminListItems, bookingListItems } from './ListItems';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 
 
@@ -83,6 +84,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MiniDrawer() {
+  
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -99,7 +101,21 @@ export default function MiniDrawer() {
 
   const handleAdmin = () => {
     setAdmin(!admin);
+    if(admin){
+      return(console.log(admin))
+    }
+    else {
+      return(console.log(admin))
+    }
   }
+
+  const adminHomeLink = forwardRef((props, ref) => (
+    <Link innerRef={ref} to="/admin" {...props} />
+  ));
+
+  const bookingHomeLink = forwardRef((props, ref) => (
+    <Link innerRef={ref} to="/" {...props} />
+  ));
 
   return (
     <>
@@ -125,11 +141,9 @@ export default function MiniDrawer() {
           <Typography variant="h6" noWrap>
             {admin ? "EasyBooking - Admin" : "EasyBooking"}
           </Typography>
-          <IconButton color="inherit">
+          <IconButton onClick={handleAdmin} color="inherit">
             <Badge badgeContent={0} color="secondary">
-              <Button onClick={handleAdmin}>
-                <NotificationsIcon />
-              </Button>
+                <NotificationsIcon/>
             </Badge>
           </IconButton>
         </Toolbar>
@@ -156,7 +170,6 @@ export default function MiniDrawer() {
         <Divider />
         <List>
           {admin ? adminListItems : bookingListItems}
-
         </List>
         <Divider />
       </Drawer>
@@ -164,10 +177,3 @@ export default function MiniDrawer() {
     </>
   );
 }
-
-/*{['Services', 'Rooms', 'Access Groups', 'Mail'].map((text, index) => (
-            <ListItem button key={text} onClick={() => { console.log('onClick') }}>
-              <ListItemIcon >{[<LocalLaundryServiceIcon/>, <MeetingRoomIcon/>, <VpnKeyIcon />, <MailIcon/>][index]}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}*/

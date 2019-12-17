@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ServiceList = ({ accessGroups = [] }) => {
+const AccessGroupList = ({ accessGroups = [] }) => {
   
   const classes = useStyles();
 
@@ -60,4 +60,4 @@ const ServiceList = ({ accessGroups = [] }) => {
   )
   
 }
-export default ServiceList
+export default AccessGroupList
