@@ -9,8 +9,8 @@ import { AUTH_TOKEN } from "../constants"
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: "http://localhost:5000/graphql",
-  credentials: "same-origin"
+  uri: "http://ec2-3-124-216-23.eu-central-1.compute.amazonaws.com/graphql",
+  credentials: "same-origin",
 })
 
 // Create a WebSocket link:
