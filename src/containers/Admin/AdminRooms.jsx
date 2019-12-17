@@ -19,9 +19,8 @@ const useStyles = makeStyles(theme => ({
 const AdminRooms = () => {
 
   const { rooms = [] } = useRooms()
-  console.log(rooms)
   const classes = useStyles()
-  const { open, setFalse, toggle } = useVisible(true)
+  const { open, toggle } = useVisible(true)
 
   return(
     <Paper className={classes.paper}>
@@ -33,6 +32,7 @@ const AdminRooms = () => {
         {open && <CreateRoomForm/>}
       </>
   </Paper>
+
   )
 }
 export default AdminRooms

@@ -1,5 +1,4 @@
-
-import React, { useState, forwardRef } from 'react';
+import React, { useState} from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -90,7 +89,7 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
-  const [admin, setAdmin] = useState(true);
+  const [admin, setAdmin] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -140,7 +139,7 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-          {admin ? "EasyBooking - Admin" : "EasyBooking"}
+            {admin ? "EasyBooking - Admin" : "EasyBooking"}
           </Typography>
           <IconButton onClick={handleAdmin} color="inherit">
             <Badge badgeContent={0} color="secondary">

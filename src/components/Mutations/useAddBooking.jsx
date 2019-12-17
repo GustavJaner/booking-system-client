@@ -3,26 +3,26 @@ import { useMutation } from "@apollo/react-hooks"
 import { GET_BOOKINGS } from "../Querys/useBookingsByUser"
 
 const CREATE_BOOKING = gql`
-  mutation addBooking($startTime: String!, $endTime: String!, $date: String!, $userId: ID!, $roomId: ID!) {
-    addBooking(startTime: $startTime, endTime: $endTime, date:$date, userId:$userId, roomId:$roomId) {
+  mutation addBooking(
+    $startTime: String!
+    $endTime: String!
+    $date: String!
+    $roomId: ID!
+  ) {
+    addBooking(
+      startTime: $startTime
+      endTime: $endTime
+      date: $date
+      roomId: $roomId
+    ) {
       id
     }
   }
 `
 const useAddBooking = () => {
   const [mutate, { loading }] = useMutation(CREATE_BOOKING)
-  const createBooking = booking =>
-    mutate({ variables: { ...booking } })
+  const createBooking = booking => mutate({ variables: { ...booking } })
   return [createBooking, { loading }]
 }
 
-export default useAddBooking;
-
-
-
-
-
-
-
-
-
+export default useAddBooking
