@@ -23,8 +23,6 @@ function BookingCalendar() {
         console.log(date);
     }
 
-
-
     function disabledDate(current) {
         const date = moment();
 
@@ -40,8 +38,6 @@ function BookingCalendar() {
         } else {
             return test.includes(current.format('DD MM YYYY'));
         }
-
-
     }
 
     return (

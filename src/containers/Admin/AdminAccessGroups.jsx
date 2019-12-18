@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper';
 import useAccessGroups from "../../components/AccessGroups/useAccessGroups"
 import Typography from '@material-ui/core/Typography';
-import AccessGroupList from "../../components/AccessGroups/List"
+import AccessGroupCards from "../../components/AccessGroups/AccessGroupCards"
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
 
 const useStyles = makeStyles(theme => ({
 
@@ -23,7 +24,8 @@ const AdminAccessGroups = () => {
       <Typography variant="h6" noWrap>
         Access Groups
       </Typography>
-      <AccessGroupList accessGroups={accessGroups} />
+      <br/>
+      <AccessGroupCards accessGroups={accessGroups} />
     </Paper>
   )
 }

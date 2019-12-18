@@ -5,7 +5,6 @@ import useRooms from "../../components/Rooms/useRooms"
 import { makeStyles } from '@material-ui/core/styles'
 import CreateRoomForm from "../../components/Room/CreateRoomForm"
 import Typography from '@material-ui/core/Typography';
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
 import useVisible from "../../components/GeneralHooks/useVisible";
 
 const useStyles = makeStyles(theme => ({
@@ -24,18 +23,16 @@ const AdminRooms = () => {
   const { open, toggle } = useVisible(true)
 
   return(
-    <MuiThemeProvider>
+    <Paper className={classes.paper}>
+      <Typography variant="h6" noWrap>
+        Rooms
+      </Typography>
+      <>
+        <RoomList rooms={rooms} toggle={toggle}/>
+        {open && <CreateRoomForm/>}
+      </>
+  </Paper>
 
-      <Paper className={classes.paper}>
-        <Typography variant="h6" noWrap>
-          Rooms
-        </Typography>
-          <>
-          <RoomList rooms={rooms} toggle={toggle}/>
-          {open && <CreateRoomForm/>}
-          </>
-      </Paper>
-    </MuiThemeProvider>
   )
 }
 export default AdminRooms
