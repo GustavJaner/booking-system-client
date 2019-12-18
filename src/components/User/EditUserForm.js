@@ -3,8 +3,7 @@ import React from "react"
 import { Form, Field } from "react-final-form"
 
 import Grid from "@material-ui/core/Grid"
-import Button from "@material-ui/core/Button"
-import _ from "lodash"
+
 import {
   TextFieldAdapter,
   ReactSelectAdapter

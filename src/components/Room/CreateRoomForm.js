@@ -6,15 +6,14 @@ import SnackBar from "@material-ui/core/Snackbar"
 import CircularProgress from '@material-ui/core/CircularProgress'
 import {
   TextFieldAdapter,
-  ReactSelectAdapter,
   TimePickerWrapper,
-  DurationPickerWrapper
+  DurationPickerWrapper,
+  SelectAdapter
 } from "../FinalFormComponents/Form"
 import useServices from "../Services/useServices"
 import useCreateRoom from "./useCreateRoom"
 import useAccessGroups from "../AccessGroups/useAccessGroups"
 import moment from "moment";
-
 
 const required = value => (value ? undefined : "Required")
 
@@ -39,22 +38,23 @@ const CreateRoomForm = () => {
     } else {
       _room.start = _room.start.format('HH:mm')
       _room.end = _room.end.format('HH:mm')
-      _room.serviceId = _room.serviceId.value
-      _room.accessGroupIds = _room.accessGroupIds
-        ? _room.accessGroupIds.map(ag => ag.value)
-        : []
-  
+      console.log("Room in Create", _room)
       await createRoom(_room)
-        
-    }
+    } 
   }
 
   if (services.loading || access.loading) return <div> <CircularProgress /> </div>
   return (
     <>
-    <Form onSubmit={submitForm}>
-      {props => (
-        <form onSubmit={props.handleSubmit}>
+    <Form onSubmit={submitForm}
+          render={({ handleSubmit, form}) => ( 
+        <form onSubmit={(event) => {
+          const promise = handleSubmit(event);
+          promise && promise.then(() => {
+            form.reset();
+          })
+          return promise;
+        }}>
           <Grid container spacing={3} alignItems="center" alignContent="center">
             <Grid item xs={4}>
               <Field
@@ -68,16 +68,14 @@ const CreateRoomForm = () => {
             <Field
                 name="start"
                 component={TimePickerWrapper}
-                floatingLabelText="Opening Time"
                 label="Start time"
-                //validate={required}
+                validate={required}
               />
             </Grid>
             <Grid item xs={4}>
               <Field
                 name="end"
                 component={TimePickerWrapper}
-                floatingLabelText="Closing Time"
                 validate={required}
                 label="End time"
               />
@@ -86,7 +84,7 @@ const CreateRoomForm = () => {
               <Field
                 name="duration"
                 component={DurationPickerWrapper}
-                floatingLabelText="Duration"
+                label="Duration"
                 validate={required}
               />
             </Grid>
@@ -105,35 +103,29 @@ const CreateRoomForm = () => {
               />
             </Grid>
             <Grid item xs={4}>
-              <label>
-                Service
-                <Field
-                  name="serviceId"
-                  component={ReactSelectAdapter}
-                  options={services.services.map(service => ({
-                    label: service.name,
-                    value: service.id
-                  }))}
-                  validate={required}
-                />
-              </label>
+                  <Field
+                    name="serviceId"
+                    label="Service"
+                    component={SelectAdapter}
+                    options={services.services.map(service => ({
+                      name: service.name,
+                      id: service.id
+                    }))}
+                    validate={required}
+                    />
             </Grid>
             <Grid item xs={4}>
-              <>
-                <label>
-                  Accessgroups
                   <Field
                     name="accessGroupIds"
-                    component={ReactSelectAdapter}
+                    label="Access Group"
+                    component={SelectAdapter}
                     options={access.accessGroups.map(ag => ({
-                      label: ag.name,
-                      value: ag.id
+                      name: ag.name,
+                      id: ag.id
                     }))}
                     isMulti
                     validate={required}
-                  />
-                </label>
-              </>
+                    />
             </Grid>
             <Grid item xs={4}>
               <Button type="submit" color="primary" variant="contained">
@@ -142,8 +134,7 @@ const CreateRoomForm = () => {
             </Grid>
           </Grid>
         </form>
-      )}
-    </Form>
+      )}/>
     <SnackBar
       anchorOrigin={{
         vertical: 'bottom',
@@ -159,8 +150,4 @@ const CreateRoomForm = () => {
 }
 export default CreateRoomForm
 
-/*
-
-
-*/
 
