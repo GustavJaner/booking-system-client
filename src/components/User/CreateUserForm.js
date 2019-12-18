@@ -22,6 +22,7 @@ const CreateUserForm = () => {
     user.role = [user.role.value]
     await createUser(user)
     setTimeout(form.reset)
+    //todo - add snackbar similar to booking  on error @max
     if (error) console.log(error)
     else console.log("user created")
   }
