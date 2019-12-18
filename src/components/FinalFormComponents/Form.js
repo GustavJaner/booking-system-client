@@ -1,14 +1,17 @@
 import React from "react"
 import TextField from "material-ui/TextField"
 import Toggle from "material-ui/Toggle"
-import Select from '@material-ui/core/Select';
-import { TimePicker, MuiPickersUtilsProvider, KeyboardTimePicker } from "@material-ui/pickers";
-import MomentUtils from '@date-io/moment';
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-
+import Select from "@material-ui/core/Select"
+import {
+  TimePicker,
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker
+} from "@material-ui/pickers"
+import MomentUtils from "@date-io/moment"
+import { makeStyles } from "@material-ui/core/styles"
+import InputLabel from "@material-ui/core/InputLabel"
+import MenuItem from "@material-ui/core/MenuItem"
+import FormControl from "@material-ui/core/FormControl"
 
 export const TextFieldAdapter = ({ input, meta, ...rest }) => (
   <TextField
@@ -41,10 +44,10 @@ export function TimePickerWrapper(props) {
     input: { name, onChange, value, ...restInput },
     meta,
     ...rest
-  } = props;
+  } = props
   const showError =
     ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
-    meta.touched;
+    meta.touched
 
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -60,24 +63,20 @@ export function TimePickerWrapper(props) {
         views={["hours", "minutes"]}
         minutesStep={30}
         onChange={onChange}
-        value={value === '' ? null : value}
-        />
+        value={value === "" ? null : value}
+      />
     </MuiPickersUtilsProvider>
-
-  );
+  )
 }
 export function DurationPickerWrapper(props) {
   const {
     input: { name, onChange, value, ...restInput },
     meta,
     ...rest
-  } = props;
+  } = props
   const showError =
     ((meta.submitError && !meta.dirtySinceLastSubmit) || meta.error) &&
-    meta.touched;
-
-    console.log(value)
-
+    meta.touched
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <KeyboardTimePicker
@@ -86,40 +85,36 @@ export function DurationPickerWrapper(props) {
         helperText={showError ? meta.error || meta.submitError : undefined}
         error={showError}
         inputProps={restInput}
-        disableToolbar={true} 
+        disableToolbar={true}
         ampm={false}
         format="HH:mm"
         views={["hours", "minutes"]}
         onChange={onChange}
-        value={value === '' ? null : value} 
+        value={value === "" ? null : value}
       />
     </MuiPickersUtilsProvider>
-
-  );
+  )
 }
-
-
 
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
-  },
-}));
+    minWidth: 120
+  }
+}))
 
-
-export function SelectAdapter({label,isMulti, options,input, ...rest }) {
+export function SelectAdapter({ label, isMulti, options, input, ...rest }) {
   const classes = useStyles()
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false)
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   const handleOpen = () => {
-    setOpen(true);
-  };
- 
+    setOpen(true)
+  }
+
   return (
     <div>
       <FormControl className={classes.formControl}>
@@ -135,7 +130,6 @@ export function SelectAdapter({label,isMulti, options,input, ...rest }) {
           value={isMulti && input.value === "" ? [] : input.value}
           onChange={input.onChange}
           multiple={isMulti}
-      
         >
           {options.map(option => (
             <MenuItem key={option.name} value={option.id}>
@@ -145,5 +139,5 @@ export function SelectAdapter({label,isMulti, options,input, ...rest }) {
         </Select>
       </FormControl>
     </div>
-  );
+  )
 }
