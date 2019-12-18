@@ -21,7 +21,6 @@ const DeleteServiceButton = ({ id }) => {
   const [removeService] = useRemoveService()
   const [open, setOpen] = React.useState(false);
 
-<<<<<<< HEAD
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -69,13 +68,6 @@ const DeleteServiceButton = ({ id }) => {
       </Dialog>
   </>
   )
-=======
-  return(
-    <IconButton color="secondary" edge="end" aria-label="delete">
-      <DeleteIcon onClick={() => removeService(id)} remove />
-    </IconButton>
-    ) 
->>>>>>> Final form stuff
 }
 
 export default DeleteServiceButton
