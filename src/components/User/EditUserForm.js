@@ -10,45 +10,74 @@ import {
   ReactSelectAdapter
 } from "../FinalFormComponents/Form"
 import useAccessGroups from "../AccessGroups/useAccessGroups"
+import useUpdateUser from "./useUpdateUser"
 
 const EditUserForm = ({ id, onClose }) => {
   const accessGroupQuery = useAccessGroups()
-  const handleSubmit = input => {
-    console.log("input..", input)
-    onClose()
+  const [updateUser, { error }] = useUpdateUser({ id })
+
+  const submitForm = async (user, form) => {
+    console.log("before", user)
+    user.accessGroupIds = user.accessGroupIds.map(option => option.value)
+    user.role = user.role.value
+
+    await updateUser(user)
+    if (error) console.log(error)
+    else onClose()
   }
   const { user, loading } = useUser({ id })
-  console.log(accessGroupQuery)
+
   if (loading || accessGroupQuery.loading) return <p> loading</p>
   if (user) console.log("user", user)
   return (
     <>
       <Form
-        onSubmit={handleSubmit}
+        onSubmit={submitForm}
         initialValues={{
+          id: id,
           username: user.username,
-          role: user.role
-          //accessGroups: user.accessGroups
+          accessGroupIds: user.accessGroups.map(ag => ({
+            label: ag.name,
+            value: ag.id
+          })),
+          role: user.role ? { value: user.role, label: user.role } : undefined
         }}
-      >
-        {props => (
-          <form onSubmit={props.handleSubmit}>
-            <Grid container spacing={3}>
-              <Grid item xs={4}>
+        validate={values => {
+          const errors = {}
+          if (!values.accessGroupIds) {
+            errors.accessGroupIds = "Required"
+          }
+          if (!values.username) {
+            errors.username = "Required"
+          }
+          return errors
+        }}
+        render={({ handleSubmit, form, values }) => (
+          <form
+            onSubmit={event => {
+              handleSubmit(event, form)
+            }}
+          >
+            <Grid
+              container
+              spacing={3}
+              alignItems="center"
+              alignContent="center"
+            >
+              <Grid item xs={3}>
                 <Field
                   name="username"
+                  disabled
                   component={TextFieldAdapter}
                   floatingLabelText="Username"
                 />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={3}>
                 <label>
                   Role
                   <Field
                     name="role"
-                    component="input"
                     component={ReactSelectAdapter}
-                    isMulti
                     options={[
                       { value: "admin", label: "admin" },
                       { value: "user", label: "user" }
@@ -56,13 +85,30 @@ const EditUserForm = ({ id, onClose }) => {
                   />
                 </label>
               </Grid>
+              <Grid item xs={3}>
+                <label>
+                  Accessgroups
+                  <Field
+                    name="accessGroupIds"
+                    component={ReactSelectAdapter}
+                    options={accessGroupQuery.accessGroups.map(ag => ({
+                      label: ag.name,
+                      value: ag.id
+                    }))}
+                    isMulti
+                  />
+                </label>
+              </Grid>
 
-              <Grid item xs={4}></Grid>
-              <Grid item xs={4}></Grid>
+              <Grid item xs={3}>
+                <Button type="submit" color="primary" variant="contained">
+                  Update user
+                </Button>
+              </Grid>
             </Grid>
           </form>
         )}
-      </Form>
+      />
     </>
   )
 }
