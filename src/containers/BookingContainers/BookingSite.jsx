@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, forwardRef } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Stepper from "@material-ui/core/Stepper"
 import Step from "@material-ui/core/Step"
@@ -13,6 +13,7 @@ import Select from "react-select"
 import SelectDateTime from "./SelectDateTime"
 import InputLabel from "@material-ui/core/InputLabel"
 import ConfirmBooking from "../../components/Bookings/ConfirmBooking"
+import { Redirect } from 'react-router';
 import moment from "moment"
 
 
@@ -50,6 +51,7 @@ const useStyles = makeStyles(theme => ({
     minHeight: 240
   }
 }))
+
 
 function getSteps() {
   return [
@@ -89,7 +91,7 @@ function BookingSite() {
   const [date, changeDate] = useState(moment())
   const [timeslot, setTimeslot] = useState(null)
   const [selectedRoomId, setSelectedRoomId] = useState(null)
-  const [createBooking] = useAddBooking({ id: selectedRoomId })
+  const [createBooking, { called }] = useAddBooking({ id: selectedRoomId })
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
 
   //Next stepper stage
@@ -132,7 +134,6 @@ function BookingSite() {
       date: date.format("DD-MM-YYYY"),
       roomId: selectedRoomId
     })
-    handleNext();
   }
 
   const nextDisabled = () => {
@@ -154,6 +155,11 @@ function BookingSite() {
   if (servicesQuery.loading || roomsQuery.loading) {
     return <LoadingAnimation />
   }
+
+  if (called) {
+    return <Redirect push to="/dashboard" />;
+  }
+
   return (
     <Container maxWidth="lg" className={classes.root}>
       <Paper className={fixedHeightPaper}>

@@ -21,13 +21,13 @@ const CREATE_BOOKING = gql`
   }
 `
 const useAddBooking = ({ id }) => {
-  const [mutate, { loading }] = useMutation(CREATE_BOOKING, {
+  const [mutate, { loading, called }] = useMutation(CREATE_BOOKING, {
     refetchQueries: [
       { query: GET_BOOKINGS_BY_ROOM, variables: { id } }
     ]
   })
   const createBooking = booking => mutate({ variables: { ...booking } })
-  return [createBooking, { loading }]
+  return [createBooking, { loading, called }]
 }
 
 export default useAddBooking
