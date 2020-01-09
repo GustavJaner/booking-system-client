@@ -7,8 +7,7 @@ import Typography from "@material-ui/core/Typography"
 import HomeIcon from "@material-ui/icons/Home"
 import EventIcon from "@material-ui/icons/Event"
 import AccessTimeIcon from "@material-ui/icons/AccessTime"
-import useRoom from "../../components/Room/useRoom"
-import { isObject } from "util"
+import useRoom from "../Room/useRoom"
 import CircularProgress from "@material-ui/core/CircularProgress"
 //GraphQL
 

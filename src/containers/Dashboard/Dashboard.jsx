@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import clsx from "clsx"
 import { makeStyles } from "@material-ui/core/styles"
 import moment from "moment"
@@ -9,7 +9,9 @@ import Paper from "@material-ui/core/Paper"
 
 import CircularProgress from "@material-ui/core/CircularProgress"
 
-import useBookingsByUser from "../../components/Querys/useBookingsByUser"
+import RemoveBookningSnackbar from '../../components/General/RemoveBookingSnackbar'
+import useBookingsByUser from "../../components/Bookings/useBookingsByUser"
+import useRemoveBooking from "../../components/Booking/useRemoveBooking"
 import CurrentBookings from "../../components/Bookings/CurrentBookings"
 
 const useStyles = makeStyles(theme => ({
@@ -30,18 +32,25 @@ const useStyles = makeStyles(theme => ({
 
 export default function Dashboard() {
   const classes = useStyles()
-
-  const { bookings, loading } = useBookingsByUser()
-
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight)
+
+  const [bookingId, setBookingId] = useState(null)
+  const [removeBooking, { error }] = useRemoveBooking({ id: bookingId });
+  const { bookings, loading } = useBookingsByUser()
+  const [open, setOpen] = useState(false);
+
+  async function handleDelete(booking) {
+    await setBookingId(booking.room.id);
+    removeBooking({ id: booking.id });
+    setOpen(true);
+  }
 
   const futureBooking = booking => {
     var today = moment()
     var date = moment(booking.date, "DD-MM-YYYY")
-    return date.isSameOrAfter(today)
+    return date.isSameOrAfter(today, 'day')
   }
 
-  console.log("bookings..", bookings)
   if (loading) {
     return (
       <div className={classes.loading}>
@@ -61,17 +70,19 @@ export default function Dashboard() {
                 if (futureBooking(booking))
                   return (
                     <CurrentBookings
-                      key={booking.date.toString()}
+                      key={booking.id}
                       booking={booking}
+                      handleDelete={handleDelete}
                     />
                   )
               })}
             </Paper>
           ) : (
-            <p> No bookings </p>
-          )}
+              <p> No bookings </p>
+            )}
         </Grid>
       </Grid>
+      <RemoveBookningSnackbar open={open} setOpen={setOpen} error={error} />
     </Container>
   )
 }

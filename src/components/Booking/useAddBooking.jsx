@@ -1,6 +1,7 @@
 import gql from "graphql-tag"
 import { useMutation } from "@apollo/react-hooks"
-import { GET_BOOKINGS } from "../Querys/useBookingsByUser"
+import { GET_BOOKINGS_BY_ROOM } from "../Bookings/useBookingsByRoom"
+
 
 const CREATE_BOOKING = gql`
   mutation addBooking(
@@ -19,10 +20,14 @@ const CREATE_BOOKING = gql`
     }
   }
 `
-const useAddBooking = () => {
-  const [mutate, { loading }] = useMutation(CREATE_BOOKING)
+const useAddBooking = ({ id }) => {
+  const [mutate, { loading, called }] = useMutation(CREATE_BOOKING, {
+    refetchQueries: [
+      { query: GET_BOOKINGS_BY_ROOM, variables: { id } }
+    ]
+  })
   const createBooking = booking => mutate({ variables: { ...booking } })
-  return [createBooking, { loading }]
+  return [createBooking, { loading, called }]
 }
 
 export default useAddBooking
