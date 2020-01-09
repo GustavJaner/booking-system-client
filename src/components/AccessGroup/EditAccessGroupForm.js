@@ -2,18 +2,21 @@ import React from "react"
 import { Form, Field } from "react-final-form"
 import useAccessGroup from "./useAccessGroup"
 import useUpdateAccessGroup from "./useUpdateAccessGroup"
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
-const EditAccessGroupForm = ({ id, onClose }) => {
+const EditAccessGroupForm = ({ id }) => {
   const { loading, accessGroup } = useAccessGroup({ id })
   const [updateAccessGroup] = useUpdateAccessGroup()
   const submitForm = async accessGroup => {
     updateAccessGroup(accessGroup)
-    onClose()
+
   }
   if (loading) {
-    return <p> Loading </p>
+    return <div> <CircularProgress /> </div>
   }
   return (
+    
     <Form
       onSubmit={submitForm}
       initialValues={{
@@ -23,8 +26,8 @@ const EditAccessGroupForm = ({ id, onClose }) => {
     >
       {props => (
         <form onSubmit={props.handleSubmit}>
-          <Field name="name" component="input" placeholder="name" />
-          <button type="submit">Update</button>
+          <Field name="name" component="input" floatingLabelText="name" />
+          <Button type="submit">Update</Button>
         </form>
       )}
     </Form>

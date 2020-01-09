@@ -16,6 +16,7 @@ export const GET_BOOKINGS = gql`
     }
   }
 `
+
 const useBookingsByUser = () => {
   const { data, loading } = useQuery(GET_BOOKINGS, {
     pollInterval: 500
