@@ -9,13 +9,13 @@ import { AUTH_TOKEN } from "../constants"
 
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: "http://ec2-3-124-216-23.eu-central-1.compute.amazonaws.com/graphql",
-  credentials: "same-origin",
+  uri: "http://ec2-35-156-59-167.eu-central-1.compute.amazonaws.com/graphql",
+  credentials: "same-origin"
 })
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `wss://ec2-3-124-216-23.eu-central-1.compute.amazonaws.com/graphql`,
+  uri: `ws://ec2-35-156-59-167.eu-central-1.compute.amazonaws.com/graphql`,
   options: {
     reconnect: true
   }
