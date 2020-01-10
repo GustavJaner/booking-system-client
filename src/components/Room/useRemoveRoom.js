@@ -3,7 +3,11 @@ import { useMutation } from "@apollo/react-hooks"
 import { GET_ROOMS } from "../Rooms/useRooms"
 const DELETE_ROOM = gql`
   mutation removeRoom($id: ID!) {
-    removeRoom(id: $id)
+    removeRoom(
+      id: $id
+      ) {
+        id
+      }
   }
 `
 
