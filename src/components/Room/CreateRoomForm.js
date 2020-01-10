@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import SnackBar from "@material-ui/core/Snackbar"
 import CircularProgress from '@material-ui/core/CircularProgress'
+import { makeStyles } from "@material-ui/styles"
 import {
   TextFieldAdapter,
   TimePickerWrapper,
@@ -14,6 +15,14 @@ import useServices from "../Services/useServices"
 import useCreateRoom from "./useCreateRoom"
 import useAccessGroups from "../AccessGroups/useAccessGroups"
 import moment from "moment";
+import { maxHeight } from "@material-ui/system"
+
+const useStyles = makeStyles(theme => ({
+  buttonStyle: {
+    minHeight: 30,
+    marginTop: 20,
+  },
+}));
 
 const required = value => (value ? undefined : "Required")
 
@@ -22,6 +31,7 @@ const CreateRoomForm = () => {
   const services = useServices()
   const access = useAccessGroups()
   const [open, setOpen] = useState(false);
+  const classes = useStyles();
 
 
   const handleClose = () => {
@@ -47,14 +57,22 @@ const CreateRoomForm = () => {
   return (
     <>
     <Form onSubmit={submitForm}
-          render={({ handleSubmit, form}) => ( 
+          render={({ handleSubmit, form, values}) => ( 
         <form onSubmit={(event) => {
           const promise = handleSubmit(event);
           promise && promise.then(() => {
             form.reset();
           })
           return promise;
-        }}>
+        }}
+        /*validate={values => {
+          const errors = {}
+          if(!values.start) {
+            errors.start = "Required"
+          }
+        } 
+          
+        }*/>
           <Grid container spacing={3} alignItems="center" alignContent="center">
             <Grid item xs={4}>
               <Field
@@ -128,7 +146,7 @@ const CreateRoomForm = () => {
                     />
             </Grid>
             <Grid item xs={4}>
-              <Button type="submit" color="primary" variant="contained">
+              <Button className={classes.buttonStyle} type="submit" color="primary" variant="contained" size="small">
                 Create
               </Button>
             </Grid>

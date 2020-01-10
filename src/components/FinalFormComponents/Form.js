@@ -50,6 +50,7 @@ export function TimePickerWrapper(props) {
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <TimePicker
         {...rest}
+        style={{ minWidth: 255  }}
         name={name}
         helperText={showError ? meta.error || meta.submitError : undefined}
         error={showError}
@@ -82,6 +83,7 @@ export function DurationPickerWrapper(props) {
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <KeyboardTimePicker
         {...rest}
+        style={{ minWidth: 255  }}
         name={name}
         helperText={showError ? meta.error || meta.submitError : undefined}
         error={showError}
@@ -127,6 +129,7 @@ export function SelectAdapter({label,isMulti, options,input, ...rest }) {
         <Select
           {...rest}
           {...input}
+          style={{minWidth: 250}}
           labelId={`${label}-label`}
           id={label}
           open={open}

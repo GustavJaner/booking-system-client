@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+    minHeight: 40,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -52,7 +53,7 @@ const RoomList = ({ rooms = [] ,toggle}) => {
         
       </Select>
     </FormControl>
-    <EditRoomButton id={roomID} hideCreate={toggle} />
+    <EditRoomButton id={roomID} toggleCreate={toggle} />
     <DeleteRoomButton id={roomID} />
 
     </div>

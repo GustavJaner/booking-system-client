@@ -14,10 +14,9 @@ import useUpdateRoom from "./useUpdateRoom"
 import useAccessGroups from "../AccessGroups/useAccessGroups"
 import moment from "moment";
 
-
 const required = value => (value && value.length !== 0 ? undefined : "Required")
 
-const EditRoomForm = ({ id, onClose }) => {
+const EditRoomForm = ({ id, onClose,toggleCreate }) => {
   const services = useServices()
   const accessgroups = useAccessGroups()
   const [updateRoom] = useUpdateRoom({ id })
@@ -39,8 +38,9 @@ const EditRoomForm = ({ id, onClose }) => {
     } else {
       
       await updateRoom(_room)
-    
+     
       onClose()
+      toggleCreate()
     }
   }
   if (loading || services.loading || accessgroups.loading)
