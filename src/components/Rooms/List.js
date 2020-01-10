@@ -21,11 +21,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const RoomList = ({ rooms = [] ,toggle}) => {
-  
   const classes = useStyles();
-
   const [roomID, setRoom] = React.useState('');
-
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   React.useEffect(() => {

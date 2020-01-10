@@ -4,9 +4,7 @@ import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import {
   TextFieldAdapter,
-  ReactSelectAdapter,
-  TimePickerWrapper,
-  DurationPickerWrapper
+  SelectAdapter
 } from "../FinalFormComponents/Form"
 import useAccessGroups from "../AccessGroups/useAccessGroups"
 import useCreateUser from "./useCreateUser"
@@ -18,8 +16,8 @@ const CreateUserForm = () => {
 
   const submitForm = async (user, form) => {
     console.log("user", user)
-    user.accessGroupIds = user.accessGroupIds.map(option => option.value)
-    user.role = [user.role.value]
+    //user.accessGroupIds = user.accessGroupIds.map(option => option.value)
+    //user.role = [user.role.value]
     await createUser(user)
     setTimeout(form.reset)
     //todo - add snackbar similar to booking  on error @max
@@ -77,10 +75,10 @@ const CreateUserForm = () => {
                   Role
                   <Field
                     name="role"
-                    component={ReactSelectAdapter}
+                    component={SelectAdapter}
                     options={[
-                      { value: "admin", label: "admin" },
-                      { value: "user", label: "user" }
+                      { name: "admin", id: "admin" },
+                      { name: "user", id: "user" }
                     ]}
                   />
                 </label>
@@ -90,13 +88,15 @@ const CreateUserForm = () => {
                   Accessgroups
                   <Field
                     name="accessGroupIds"
-                    component={ReactSelectAdapter}
+                    label="Access Group"
+                    component={SelectAdapter}
                     options={accessGroups.map(ag => ({
-                      label: ag.name,
-                      value: ag.id
+                      name: ag.name,
+                      id: ag.id
                     }))}
                     isMulti
-                  />
+                    validate={required}
+                    />
                 </label>
               </Grid>
               <Grid item xs={4}>
