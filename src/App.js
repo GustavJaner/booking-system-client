@@ -74,16 +74,16 @@ const App = () => {
               <Route exact path="/admin" component={AdminHome} />
               <Route
                 exact
-                path="/services"
+                path="/admin/services"
                 component={AdminServices}
               />
-              <Route exact path="/rooms" component={AdminRooms} />
+              <Route exact path="/admin/rooms" component={AdminRooms} />
               <Route
                 exact
-                path="/accessgroups"
+                path="/admin/accessgroups"
                 component={AdminAccessGroups}
               />
-              <Route exact path="/users" component={AdminUsers} />
+              <Route exact path="/admin/users" component={AdminUsers} />
               <Route component={PageNotFound} />
             </Switch>
           </div>
