@@ -6,27 +6,32 @@ import Grid from "@material-ui/core/Grid"
 
 import {
   TextFieldAdapter,
-  ReactSelectAdapter
+  SelectAdapter
 } from "../FinalFormComponents/Form"
 import useAccessGroups from "../AccessGroups/useAccessGroups"
 import useUpdateUser from "./useUpdateUser"
 
 const EditUserForm = ({ id, onClose }) => {
-  const accessGroupQuery = useAccessGroups()
+  const accessgroups = useAccessGroups()
   const [updateUser, { error }] = useUpdateUser({ id })
+  const { user, loading } = useUser({ id })
 
   const submitForm = async (user, form) => {
     console.log("before", user)
-    user.accessGroupIds = user.accessGroupIds.map(option => option.value)
-    user.role = user.role.value
+    //user.accessGroupIds = user.accessGroupIds.map(option => option.value)
+    //user.role = user.role.value
 
     await updateUser(user)
-    if (error) console.log(error)
-    else onClose()
+    if (error) {
+      console.log(error)
+    }
+    else {
+      setTimeout(form.reset)
+      onClose()
+    }
   }
-  const { user, loading } = useUser({ id })
 
-  if (loading || accessGroupQuery.loading) return <p> loading</p>
+  if (loading || accessgroups.loading) return <p> loading</p>
   if (user) console.log("user", user)
   return (
     <>
@@ -35,11 +40,8 @@ const EditUserForm = ({ id, onClose }) => {
         initialValues={{
           id: id,
           username: user.username,
-          accessGroupIds: user.accessGroups.map(ag => ({
-            label: ag.name,
-            value: ag.id
-          })),
-          role: user.role ? { value: user.role, label: user.role } : undefined
+          accessGroupIds: user.accessGroups.map(ag => ag.id),
+          role: user.role[0] 
         }}
         validate={values => {
           const errors = {}
@@ -76,10 +78,10 @@ const EditUserForm = ({ id, onClose }) => {
                   Role
                   <Field
                     name="role"
-                    component={ReactSelectAdapter}
+                    component={SelectAdapter}
                     options={[
-                      { value: "admin", label: "admin" },
-                      { value: "user", label: "user" }
+                      { name: "admin", id: "admin" },
+                      { name: "user", id: "user" }
                     ]}
                   />
                 </label>
@@ -89,12 +91,13 @@ const EditUserForm = ({ id, onClose }) => {
                   Accessgroups
                   <Field
                     name="accessGroupIds"
-                    component={ReactSelectAdapter}
-                    options={accessGroupQuery.accessGroups.map(ag => ({
-                      label: ag.name,
-                      value: ag.id
-                    }))}
+                    label="Access Group"
+                    component={SelectAdapter}
                     isMulti
+                    options={accessgroups.accessGroups.map(ag => ({
+                      name: ag.name,
+                      id: ag.id
+                    }))}
                   />
                 </label>
               </Grid>

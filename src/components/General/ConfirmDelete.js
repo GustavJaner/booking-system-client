@@ -14,16 +14,20 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const ConfirmDelete = ({ deleteFunction, open, handleClose }) => {
+  const deleteStuff = () => {
+    deleteFunction()
+    handleClose()
+  }
   const classes = useStyles()
   return (
-    <Modal className={classes.paper} open={open} onClose={handleClose}>
+    <Modal className={classes.paper} open={open} toggle={handleClose}>
       <Paper>
         <h1>Are you sure you want to delete?</h1>
         <Button onClick={handleClose} variant="contained">
           {" "}
           Cancel
         </Button>
-        <Button onClick={deleteFunction} variant="contained" color="secondary">
+        <Button onClick={deleteStuff} variant="contained" color="secondary">
           {" "}
           Delete
         </Button>

@@ -32,11 +32,7 @@ const EditRoomForm = ({ id, onClose,toggleCreate }) => {
     _room.duration = parseInt(_room.duration)
     console.log("Room", _room)
 
-    if (
-      moment(_room.end, "HH:mm").diff(moment(_room.start, "HH:mm"), "minutes") %
-        _room.duration !==
-      0
-    ) {
+    if (moment(_room.end, "HH:mm").diff(moment(_room.start, "HH:mm"), "minutes") % _room.duration !== 0) {
       setOpen(true)
     } else {
       await updateRoom(_room)
