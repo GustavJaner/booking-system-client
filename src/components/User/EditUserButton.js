@@ -8,6 +8,7 @@ const EditUserButton = ({ id }) => {
     <>
       <button onClick={() => toggle()}>Edit User</button>
       {open && <EditUserForm id={id} onClose={setFalse} />}
+
     </>
   )
 }
