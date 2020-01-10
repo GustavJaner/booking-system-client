@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography"
 import useUsers from "../../components/Users/useUsers"
 import UserList from "../../components/Users/UserList"
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
+import CreateUserForm from "../../components/User/CreateUserForm"
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -28,6 +29,8 @@ const AdminUsers = () => {
           Users
         </Typography>
         <UserList users={users} />
+        <h1> Create Users</h1>
+        <CreateUserForm />
       </Paper>
     </MuiThemeProvider>
   )
