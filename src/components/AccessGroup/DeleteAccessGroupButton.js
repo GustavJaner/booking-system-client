@@ -8,6 +8,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
+
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -30,21 +32,17 @@ const DeleteAccessGroupButton = ({ id }) => {
   };
 
   const deleteAndClose = () => {
-    setOpen(false);
     removeAccessGroup(id)
+    setOpen(false);
   };
 
   return (
   <>  
-      <Button
-        variant="contained"
-        color="secondary"
-        className={classes.button}
-        startIcon={<DeleteIcon />}
+      <IconButton
         onClick={handleClickOpen}
       >
-        Delete
-      </Button>
+        <DeleteIcon />
+      </IconButton>
     <Dialog
     open={open}
     onClose={handleClose}

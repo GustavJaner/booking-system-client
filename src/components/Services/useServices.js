@@ -4,8 +4,8 @@ import dotProp from "dot-prop"
 export const GET_SERVICES = gql`
   query useServices {
     services {
-      name
       id
+      name
     }
   }
 `
@@ -13,7 +13,6 @@ export const GET_SERVICES = gql`
 const useServices = () => {
   const { data, loading } = useQuery(GET_SERVICES)
   const services = dotProp.get(data, "services", [])
-
   return { services, loading }
 }
 

@@ -13,10 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import Fade from '@material-ui/core/Fade';
 
-import testImg from "./Triangeln.jpg";
-import Uppsala from "./Uppsala.jpg";
+import testImg from "../../assets/Triangeln.jpg";
+import Uppsala from "../../assets/Uppsala.jpg";
 
 import DeleteAccessGroupButton from "../AccessGroup/DeleteAccessGroupButton"
 import EditAccessGroupButton from "../AccessGroup/EditAccessGroupButton"
@@ -69,11 +69,16 @@ const AccessGroupCard = ({ accessGroups = [] }) => {
     return(image)
   }
 
+  const checked = React.useState(true);
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         {accessGroups.map(accessgroup => (
         <Grid item xs={12} sm={4}>
+          <Fade in={checked}
+          style={{ transformOrigin: '0 0 0' }}
+          {...(checked ? { timeout: 1000 } : {})}>
           <Card className={classes.card}>
             <CardHeader
               avatar={
@@ -89,16 +94,16 @@ const AccessGroupCard = ({ accessGroups = [] }) => {
               image={getImage(accessgroup.name)}
             />
             <CardContent>
-            <CardActions disableSpacing>
-                <Grid item xs={12} sm={4}>
-                  <EditAccessGroupButton id={accessgroup.id} />
-                </Grid>
-                <Grid item xs={1} sm={4}>
-                  <DeleteAccessGroupButton id={accessgroup.id} />
-                </Grid>
-            </CardActions>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt aliquid maiores molestiae dignissimos pariatur minus quia recusandae dolorum id asperiores ratione voluptatibus explicabo dolores, quam officiis! Quisquam hic pariatur iure!
+              </Typography>
             </CardContent>
+            <CardActions disableSpacing>
+              <EditAccessGroupButton id={accessgroup.id} />
+              <DeleteAccessGroupButton id={accessgroup.id} />
+            </CardActions>
           </Card>
+          </Fade>
         </Grid>
         ))}
         </Grid>

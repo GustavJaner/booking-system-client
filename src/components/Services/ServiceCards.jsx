@@ -10,13 +10,16 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import Grid from '@material-ui/core/Grid';
+import Fade from '@material-ui/core/Fade';
 
-import laundry from "./laundry.jpg";
-import sauna from "./sauna.png";
-import pool from "./pool.jpeg";
+import laundry from "../../assets/laundry.jpg";
+import sauna from "../../assets/sauna.png";
+import pool from "../../assets/pool.jpeg";
+import placeholder from "../../assets/placeholder.png";
 
 import DeleteServiceButton from "../Service/DeleteServiceButton";
 import EditServiceButton from "../Service/EditServiceButton";
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -48,6 +51,8 @@ const useStyles = makeStyles(theme => ({
   
 }));
 
+
+
 const ServiceCard = ({ services = [] }) => {
   console.log(services)
   console.log(services.sort())
@@ -68,16 +73,23 @@ const ServiceCard = ({ services = [] }) => {
       image = pool;
     }
     else{
-      image = ""
+      image = placeholder
     }
     return(image)
   }
 
+  const checked = React.useState(true);
+
+
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        {services.map(services => (
+        {services.map(service => (
         <Grid item xs={12} sm={4}>
+           <Fade in={checked}
+          style={{ transformOrigin: '0 0 0' }}
+          {...(checked ? { timeout: 1000 } : {})}>
           <Card className={classes.card}>
             <CardHeader
               avatar={
@@ -85,24 +97,25 @@ const ServiceCard = ({ services = [] }) => {
                   {counter++}
                 </Avatar>
               }
-              title={services.name}
-              subheader={services.id}
+              title={service.name}
+              subheader={service.id}
             />
             <CardMedia
               className={classes.media}
-              image={getImage(services.name)}
+              image={getImage(service.name)}
             />
-            <CardContent>
-            <CardActions disableSpacing>
-                <Grid item xs={12} sm={4}>
-                  <EditServiceButton id={services.id} />
-                </Grid>
-                <Grid item xs={1} sm={4}>
-                  <DeleteServiceButton id={services.id} />
-                </Grid>
-            </CardActions>
+             <CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt aliquid maiores molestiae dignissimos pariatur minus quia recusandae dolorum id asperiores ratione voluptatibus explicabo dolores, quam officiis! Quisquam hic pariatur iure!
+              </Typography>
             </CardContent>
+            <CardActions disableSpacing>
+              <EditServiceButton id={service.id} />
+              <DeleteServiceButton id={service.id} />
+            </CardActions>
           </Card>
+          </Fade>
+          
         </Grid>
         ))}
         </Grid>

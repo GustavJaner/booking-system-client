@@ -5,8 +5,8 @@ import { GET_SERVICES } from "../Services/useServices"
 const UPDATE_SERVICE = gql`
   mutation updateService($id: ID!, $name: String!) {
     updateService(id: $id, name: $name) {
-      name
       id
+      name
     }
   }
 `
@@ -15,7 +15,8 @@ const useUpdateService = () => {
   const [mutate, { loading }] = useMutation(UPDATE_SERVICE, {
     refetchQueries: [{ query: GET_SERVICES }]
   })
-  const updateService = service => mutate({ variables: { ...service } })
+  const updateService = service => 
+    mutate({ variables: { ...service } })
   return [updateService, { loading }]
 }
 

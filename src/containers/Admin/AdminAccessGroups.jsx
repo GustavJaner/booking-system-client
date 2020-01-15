@@ -1,10 +1,10 @@
-import React from "react"
-import { makeStyles } from '@material-ui/core/styles'
+import React from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import useAccessGroups from "../../components/AccessGroups/useAccessGroups"
+import useAccessGroups from "../../components/AccessGroups/useAccessGroups";
 import Typography from '@material-ui/core/Typography';
-import AccessGroupCards from "../../components/AccessGroups/AccessGroupCards"
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
+import AccessGroupCards from "../../components/AccessGroups/AccessGroupCards";
+import CreateAccessGroupButton from "../../components/AccessGroup/CreateAccessGroupButton"
 
 const useStyles = makeStyles(theme => ({
 
@@ -26,6 +26,9 @@ const AdminAccessGroups = () => {
       </Typography>
       <br/>
       <AccessGroupCards accessGroups={accessGroups} />
+      
+      {/* <CreateAccessGroupButton /> */}
+
     </Paper>
   )
 }
