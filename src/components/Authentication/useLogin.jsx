@@ -16,7 +16,7 @@ const useLogin = () => {
   const [mutate, { loading }] = useMutation(LOGIN_USER)
   const loginUser = User => mutate({ variables: { ...User } })
 
-  return [loginUser, loading]
+  return [loginUser, { loading }]
 }
 
 export default useLogin
