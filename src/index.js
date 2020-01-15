@@ -5,15 +5,20 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from "react-router-dom";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
+import client from "./apollo"
+import { ApolloProvider } from "@apollo/react-hooks"
+
 
 
 ReactDOM.render(
   <MuiThemeProvider>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+    <BrowserRouter>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider >
+    </BrowserRouter>
   </MuiThemeProvider>,
-document.getElementById('root'));
+  document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

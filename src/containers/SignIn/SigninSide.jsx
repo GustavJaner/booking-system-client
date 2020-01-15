@@ -14,6 +14,8 @@ import Typography from "@material-ui/core/Typography"
 import { makeStyles } from "@material-ui/core/styles"
 
 import useLogin from "../../components/Authentication/useLogin"
+import useTokenIsValid from '../../components/Authentication/useTokenIsValid'
+
 import { Link } from "react-router-dom"
 
 import SignInBackground from "../../assets/signin.jpg"
@@ -56,6 +58,8 @@ const homeLink = forwardRef((props, ref) => (
 export default function SignInSide() {
   const classes = useStyles()
   const [loginUser] = useLogin()
+  //const { data, loading } = useTokenIsValid()
+
 
   async function makeUser() {
     let login = await loginUser({
@@ -69,6 +73,7 @@ export default function SignInSide() {
     localStorage.setItem(AUTH_TOKEN, login.data.login.token)
     window.location.href = "/dashboard"
   }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -115,7 +120,7 @@ export default function SignInSide() {
               fullWidth
               variant="contained"
               color="primary"
-              //  className={classes.submit}
+            //  className={classes.submit}
             >
               Sign In
             </Button>
