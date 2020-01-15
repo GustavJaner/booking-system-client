@@ -28,6 +28,8 @@ const useStyles = makeStyles(theme => ({
   appBarSpacer: theme.mixins.toolbar
 }))
 
+
+//Redirect to signin page if not authenticated
 function PrivateRoute({ children, validToken, ...rest }) {
   return (
     <Route
@@ -48,6 +50,8 @@ function PrivateRoute({ children, validToken, ...rest }) {
   );
 }
 
+
+//Redirect to dashboard if authenticated
 function LoginRoute({ children, validToken, ...rest }) {
   return (
     <Route
@@ -70,13 +74,14 @@ function LoginRoute({ children, validToken, ...rest }) {
 
 const App = () => {
   const [token, setToken] = React.useState(null)
-  const { tokenValid, loading } = useTokenIsValid()
+  const { tokenValid, loading, refetch } = useTokenIsValid()
   let auth = localStorage.getItem(AUTH_TOKEN)
   if (auth && !token) {
     setToken(auth)
   }
   const classes = useStyles()
 
+  //TODO loading animation..
   if (loading) {
     return (
       <>
@@ -87,7 +92,7 @@ const App = () => {
   return (
     <Switch>
       <LoginRoute exact path="/" validToken={tokenValid}>
-        <SignInSide />
+        <SignInSide refetch={refetch} />
       </LoginRoute>
       <div className={classes.root}>
         <CssBaseline />
@@ -100,19 +105,25 @@ const App = () => {
             <PrivateRoute path="/booking" validToken={tokenValid}>
               <Bookingsite />
             </PrivateRoute>
-            <PrivateRoute path="/admin" validToken={tokenValid}>
+            <PrivateRoute exact path="/admin" validToken={tokenValid}>
+              <AdminHome />
+            </PrivateRoute>
+            <PrivateRoute path="/admin/services" validToken={tokenValid}>
               <AdminServices />
             </PrivateRoute>
-            <PrivateRoute path="/rooms" validToken={tokenValid}>
+            <PrivateRoute path="/admin/rooms" validToken={tokenValid}>
               <AdminRooms />
             </PrivateRoute>
-            <PrivateRoute path="/accessgroups" validToken={tokenValid}>
+            <PrivateRoute path="/admin/accessgroups" validToken={tokenValid}>
               <AdminAccessGroups />
             </PrivateRoute>
-            <PrivateRoute path="/users" validToken={tokenValid}>
+            <PrivateRoute path="/admin/users" validToken={tokenValid}>
               <AdminUsers />
             </PrivateRoute>
-            <Route component={PageNotFound} />
+            {
+              //Not working for some reason, always loads...
+              //<Route component={PageNotFound} />
+            }
           </div>
         </main>
       </div >

@@ -7,9 +7,9 @@ export const CHECK_TOKEN = gql`
   }
 `
 const useTokenisValid = () => {
-    const { data, loading } = useQuery(CHECK_TOKEN)
+    const { data, loading, refetch } = useQuery(CHECK_TOKEN)
     const tokenValid = dotProp.get(data, 'tokenIsValid', [])
-    return { tokenValid, loading }
+    return { tokenValid, loading, refetch }
 }
 
 export default useTokenisValid
