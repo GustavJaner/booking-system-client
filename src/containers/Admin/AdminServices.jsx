@@ -9,7 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import ServiceCards from "../../components/Services/ServiceCards";
 import CreateServiceButton from "../../components/Service/CreateServiceButton";
-import Grow from '@material-ui/core/Grow';
+
 
 const useStyles = makeStyles(theme => ({
 
@@ -31,8 +31,7 @@ const AdminServices = () => {
 
   const classes = useStyles()
   const { services = []} = useServices()
-  
-  const [checked] = React.useState(true);
+
 
   return (
     <Paper className={classes.paper}>
@@ -42,7 +41,8 @@ const AdminServices = () => {
       <br/>
       <ServiceCards services={services} />
 
-      <CreateServiceButton />
+      
+        <CreateServiceButton />
 
     </Paper>
   )

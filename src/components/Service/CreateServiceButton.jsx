@@ -18,6 +18,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
 import useService from "./useService"
 import { Fab } from "@material-ui/core";
+import Zoom from '@material-ui/core/Zoom';
 
 
 const useStyles = makeStyles(theme => ({
@@ -59,7 +60,7 @@ const CreateServiceButton = ({ id }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [createService] = useCreateService()
-
+  const checked = React.useState(true);
 
   const submitForm = async service => {
     createService(service)
@@ -80,7 +81,9 @@ const CreateServiceButton = ({ id }) => {
 
   return (
     
-    <>  
+    <> 
+    <Zoom in={checked}
+          {...(checked ? { timeout: 500 } : {})}>
     <Tooltip title="Add Service" aria-label="add">
       <Fab
         variant="contained"
@@ -92,6 +95,7 @@ const CreateServiceButton = ({ id }) => {
         <AddIcon />
       </Fab>
     </Tooltip>
+    </Zoom> 
     <Dialog
     open={open}
     onClose={handleClose}
