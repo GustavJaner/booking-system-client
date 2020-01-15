@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+    minHeight: 40,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -20,40 +21,36 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const RoomList = ({ rooms = [] ,toggle}) => {
-  
   const classes = useStyles();
-
   const [roomID, setRoom] = React.useState('');
-
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   React.useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  
   return (
     <div>
     <FormControl variant="outlined" className={classes.formControl}>
-      <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+      <InputLabel ref={inputLabel} id="outlined-label">
         Rooms
       </InputLabel>
       <Select
-        labelId="demo-simple-select-outlined-label"
-        id="demo-simple-select-outlined"
+        labelId="outlined-label"
+        id="select-outlined"
         value={roomID}
         onChange={(e) => setRoom(e.target.value) }
         labelWidth={labelWidth}
       >
       {rooms.map(room => (
-        <MenuItem value={room.id}>
+        <MenuItem key={room.name} value={room.id}>
           {room.name}
         </MenuItem>
         ))}
         
       </Select>
     </FormControl>
-    <EditRoomButton id={roomID} hideCreate={toggle}/>
+    <EditRoomButton id={roomID} toggleCreate={toggle} />
     <DeleteRoomButton id={roomID} />
 
     </div>
