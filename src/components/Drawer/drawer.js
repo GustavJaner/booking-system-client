@@ -15,6 +15,7 @@ import { adminListItems, bookingListItems } from './ListItems';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 
@@ -79,6 +80,9 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  logOutButton: {
+    left: theme.spacing(130),
+  }
 }));
 
 export default function MiniDrawer({ logout, admin }) {
@@ -120,11 +124,13 @@ export default function MiniDrawer({ logout, admin }) {
           <Typography variant="h6" noWrap>
             {admin ? "EasyBooking - Admin" : "EasyBooking"}
           </Typography>
-          <IconButton onClick={logout} color="inherit">
+          <Tooltip title="Logout" aria-label="logout">
+          <IconButton onClick={logout} color="inherit" className={classes.logOutButton}>
             <Badge badgeContent={0} color="secondary">
               <ExitToAppIcon />
             </Badge>
           </IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
       <Drawer
