@@ -8,6 +8,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -17,7 +18,6 @@ const useStyles = makeStyles(theme => ({
 
 const DeleteServiceButton = ({ id }) => {
   
-  const classes = useStyles();
   const [removeService] = useRemoveService()
   const [open, setOpen] = React.useState(false);
 
@@ -30,21 +30,18 @@ const DeleteServiceButton = ({ id }) => {
   };
 
   const deleteAndClose = () => {
+    removeService(id)
     setOpen(false);
-    removeService (id)
   };
 
   return (
   <>  
-      <Button
+      <IconButton
         variant="contained"
-        color="secondary"
-        className={classes.button}
-        startIcon={<DeleteIcon />}
         onClick={handleClickOpen}
       >
-        Delete
-      </Button>
+        <DeleteIcon />
+      </IconButton>
     <Dialog
     open={open}
     onClose={handleClose}

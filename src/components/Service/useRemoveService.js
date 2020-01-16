@@ -4,7 +4,9 @@ import { GET_SERVICES } from "../Services/useServices"
 
 const DELETE_SERVICE = gql`
   mutation removeService($id: ID!) {
-    removeService(id: $id)
+    removeService(id: $id) {
+      id
+    }
   }
 `
 
