@@ -81,6 +81,12 @@ const App = () => {
   }
   const classes = useStyles()
 
+  //Very rudimental logout feature..
+  const handleLogout = () => {
+    localStorage.setItem(AUTH_TOKEN, 'auth-token')
+    refetch()
+  }
+
   //TODO loading animation..
   if (loading) {
     return (
@@ -96,7 +102,7 @@ const App = () => {
       </LoginRoute>
       <div className={classes.root}>
         <CssBaseline />
-        <Navbar />
+        <Navbar logout={handleLogout} />
         <main className={classes.content}>
           <div className={classes.appBarSpacer}>
             <PrivateRoute path="/dashboard" validToken={tokenValid}>
