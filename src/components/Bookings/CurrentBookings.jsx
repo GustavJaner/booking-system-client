@@ -31,6 +31,9 @@ function CurrentBookings({ booking, handleDelete }) {
             <Card className={classes.card}>
                 <CardContent>
                     <Typography variant="h5" align="left">
+                        {booking.room.service.name}
+                    </Typography>
+                    <Typography variant="h6" align="left">
                         {booking.room.name}
                     </Typography>
                     <Typography variant="h6" align="left">

@@ -12,6 +12,9 @@ export const GET_BOOKINGS = gql`
       room {
         id
         name
+        service {
+          name
+        }
       }
     }
   }
