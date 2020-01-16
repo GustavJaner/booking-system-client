@@ -13,10 +13,12 @@ const LOGIN_USER = gql`
   }
 `
 const useLogin = () => {
-  const [mutate, { loading }] = useMutation(LOGIN_USER)
+  const [mutate, { loading, error }] = useMutation(LOGIN_USER, { errorPolicy: 'all' })
   const loginUser = User => mutate({ variables: { ...User } })
 
-  return [loginUser, { loading }]
+  const loginError = (error ? true : false)
+
+  return [loginUser, { loading, loginError }]
 }
 
 export default useLogin

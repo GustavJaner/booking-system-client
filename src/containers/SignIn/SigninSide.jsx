@@ -15,6 +15,7 @@ import useLogin from "../../components/Authentication/useLogin"
 import { Redirect } from 'react-router';
 import SignInBackground from "../../assets/signin.jpg"
 import { AUTH_TOKEN, USER, USER_NAME, USER_ID } from "../../constants"
+import LoginSnackbar from '../../components/General/LoginSnackbar'
 
 
 const useStyles = makeStyles(theme => ({
@@ -48,10 +49,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInSide({ refetch }) {
   const classes = useStyles()
-  const [loginUser] = useLogin()
+  const [loginUser, { loginError }] = useLogin()
   const [sucess, setSucess] = useState(false);
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const [open, setOpen] = useState(false);
+
 
 
   const handleNameChange = event => {
@@ -64,19 +67,26 @@ export default function SignInSide({ refetch }) {
 
 
   async function makeUser() {
-    let login = await loginUser({
-      username: user,
-      password: password
-    })
+    let login = null
+    try {
+      login = await loginUser({
+        username: user,
+        password: password
+      })
+    } catch (error) {
+      setOpen(true)
+    }
     refetch()
     //Set redirect variable to true, login was sucessfull
     if (login) {
+      console.log('hej')
       localStorage.setItem(USER_NAME, { ...login.data.login.user.username })
       localStorage.setItem(USER_ID, { ...login.data.login.user.id })
       localStorage.setItem(AUTH_TOKEN, login.data.login.token)
       setSucess(true);
     }
   }
+
 
   //Redirect to Dashboard if a login was sucessfull
   if (sucess) {
@@ -138,6 +148,7 @@ export default function SignInSide({ refetch }) {
             </form>
           </div>
         </Grid>
+        <LoginSnackbar open={open} setOpen={setOpen} />
       </Grid>
     )
   }
