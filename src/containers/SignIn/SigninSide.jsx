@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInSide({ refetch }) {
   const classes = useStyles()
-  const [loginUser, { loginError }] = useLogin()
+  const [loginUser] = useLogin()
   const [sucess, setSucess] = useState(false);
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
