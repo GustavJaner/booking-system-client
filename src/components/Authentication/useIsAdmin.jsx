@@ -7,10 +7,11 @@ export const CHECK_ADMIN = gql`
   }
 `
 const useIsAdmin = () => {
-    const { data, loading } = useQuery(CHECK_ADMIN)
+    const { data, loading, refetch } = useQuery(CHECK_ADMIN)
     const admin = dotProp.get(data, 'isAdmin', [])
     const adminLoading = loading
-    return { admin, adminLoading }
+    const adminRefetch = refetch
+    return { admin, adminLoading, adminRefetch }
 }
 
 export default useIsAdmin

@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function SignInSide({ refetch }) {
+export default function SignInSide({ refetch, adminRefetch }) {
   const classes = useStyles()
   const [loginUser] = useLogin()
   const [sucess, setSucess] = useState(false);
@@ -77,9 +77,9 @@ export default function SignInSide({ refetch }) {
       setOpen(true)
     }
     refetch()
+    adminRefetch()
     //Set redirect variable to true, login was sucessfull
     if (login) {
-      console.log('hej')
       localStorage.setItem(USER_NAME, { ...login.data.login.user.username })
       localStorage.setItem(USER_ID, { ...login.data.login.user.id })
       localStorage.setItem(AUTH_TOKEN, login.data.login.token)

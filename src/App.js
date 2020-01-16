@@ -77,7 +77,7 @@ function LoginRoute({ children, validToken, ...rest }) {
 const App = () => {
   const [token, setToken] = useState(null)
   const { tokenValid, loading, refetch } = useTokenIsValid()
-  const { admin, adminLoading } = useIsAdmin()
+  const { admin, adminLoading, adminRefetch } = useIsAdmin()
 
   let auth = localStorage.getItem(AUTH_TOKEN)
   if (auth && !token) {
@@ -102,7 +102,7 @@ const App = () => {
   return (
     <Switch>
       <LoginRoute exact path="/" validToken={tokenValid}>
-        <SignInSide refetch={refetch} />
+        <SignInSide refetch={refetch} adminRefetch={adminRefetch} />
       </LoginRoute>
       <div className={classes.root}>
         <CssBaseline />
