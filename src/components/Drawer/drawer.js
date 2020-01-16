@@ -16,6 +16,8 @@ import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
+
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -79,13 +81,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MiniDrawer({ logout }) {
+export default function MiniDrawer({ logout, admin }) {
 
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-
-  const [admin, setAdmin] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -94,16 +94,6 @@ export default function MiniDrawer({ logout }) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  const handleAdmin = () => {
-    setAdmin(!admin);
-    if (admin) {
-      return (console.log(admin))
-    }
-    else {
-      return (console.log(admin))
-    }
-  }
 
   return (
     <>
@@ -129,11 +119,6 @@ export default function MiniDrawer({ logout }) {
           <Typography variant="h6" noWrap>
             {admin ? "EasyBooking - Admin" : "EasyBooking"}
           </Typography>
-          <IconButton onClick={handleAdmin} color="inherit">
-            <Badge badgeContent={0} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
           <IconButton onClick={logout} color="inherit">
             <Badge badgeContent={0} color="secondary">
               <ExitToAppIcon />
@@ -162,7 +147,8 @@ export default function MiniDrawer({ logout }) {
         </div>
         <Divider />
         <List>
-          {admin ? adminListItems : bookingListItems}
+          {admin ? bookingListItems : bookingListItems}
+          {admin ? adminListItems : <></>}
         </List>
         <Divider />
       </Drawer>
