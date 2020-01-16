@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import AdminHome from "./containers/Admin/AdminHome"
 import Navbar from "./components/Drawer/drawer"
 import AdminAccessGroups from "./containers/Admin/AdminAccessGroups"
@@ -14,6 +14,8 @@ import Dashboard from "./containers/Dashboard/Dashboard.jsx"
 import SignInSide from "./containers/SignIn/SigninSide"
 import { AUTH_TOKEN } from "./constants"
 import useTokenIsValid from './components/Authentication/useTokenIsValid'
+import useIsAdmin from './components/Authentication/useIsAdmin'
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -73,8 +75,10 @@ function LoginRoute({ children, validToken, ...rest }) {
 }
 
 const App = () => {
-  const [token, setToken] = React.useState(null)
+  const [token, setToken] = useState(null)
   const { tokenValid, loading, refetch } = useTokenIsValid()
+  const { admin, adminLoading, adminRefetch } = useIsAdmin()
+
   let auth = localStorage.getItem(AUTH_TOKEN)
   if (auth && !token) {
     setToken(auth)
@@ -88,7 +92,7 @@ const App = () => {
   }
 
   //TODO loading animation..
-  if (loading) {
+  if (loading || adminLoading) {
     return (
       <>
       </>
@@ -98,11 +102,11 @@ const App = () => {
   return (
     <Switch>
       <LoginRoute exact path="/" validToken={tokenValid}>
-        <SignInSide refetch={refetch} />
+        <SignInSide refetch={refetch} adminRefetch={adminRefetch} />
       </LoginRoute>
       <div className={classes.root}>
         <CssBaseline />
-        <Navbar logout={handleLogout} />
+        <Navbar logout={handleLogout} admin={admin} />
         <main className={classes.content}>
           <div className={classes.appBarSpacer}>
             <PrivateRoute path="/dashboard" validToken={tokenValid}>
