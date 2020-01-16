@@ -38,13 +38,6 @@ const HomeLink = forwardRef((props, ref) => (
 
 export const adminListItems = (
   <div>
-    <ListItem button component={adminHomeLink}>
-      <ListItemIcon>
-        <HomeIcon />
-      </ListItemIcon>
-      <ListItemText primary={"Home"} />
-    </ListItem>
-
     <ListItem button component={adminServiceLink}>
       <ListItemIcon>
         <LocalLaundryServiceIcon />
