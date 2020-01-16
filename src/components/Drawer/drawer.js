@@ -95,6 +95,7 @@ export default function MiniDrawer({ logout, admin }) {
     setOpen(false);
   };
 
+
   return (
     <>
 

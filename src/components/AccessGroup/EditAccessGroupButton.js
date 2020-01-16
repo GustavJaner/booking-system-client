@@ -44,8 +44,6 @@ const EditAccessGroupButton = ({ id }) => {
     setOpen(false);
   };
 
-  console.log(accessGroup.name)
-
   return (
     <>  
       <IconButton

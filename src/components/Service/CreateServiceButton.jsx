@@ -5,7 +5,6 @@ import { green } from '@material-ui/core/colors';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
-import useCreateService from "./useCreateService"
 import AddIcon from '@material-ui/icons/Add';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { makeStyles } from '@material-ui/core/styles';
@@ -17,6 +16,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
 import useService from "./useService"
+import useCreateService from "./useCreateService"
 import { Fab } from "@material-ui/core";
 import Zoom from '@material-ui/core/Zoom';
 
@@ -109,10 +109,6 @@ const CreateServiceButton = ({ id }) => {
           </DialogContentText>
           <Form
       onSubmit={submitForm}
-      initialValues={{
-        id: id,
-        name: service.name
-      }}
     >
       {props => (
         <form onSubmit={props.handleSubmit}>
