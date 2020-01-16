@@ -60,8 +60,6 @@ const EditServiceButton = ({ id }) => {
     setOpen(false);
   };
 
-  console.log(service);
-
   return (
     <>  
       <IconButton

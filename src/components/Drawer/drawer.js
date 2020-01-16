@@ -96,12 +96,6 @@ export default function MiniDrawer() {
 
   const handleAdmin = () => {
     setAdmin(!admin);
-    if(admin){
-      return(console.log(admin))
-    }
-    else {
-      return(console.log(admin))
-    }
   }
 
   return (

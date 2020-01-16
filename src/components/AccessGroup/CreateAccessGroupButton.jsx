@@ -6,7 +6,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import AddIcon from '@material-ui/icons/Add';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -15,8 +14,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Tooltip from '@material-ui/core/Tooltip';
-import useAccessGroup from "./useAccessGroup"
+import useAccessGroup from "./useAccessGroup";
+import useCreateAccessGroup from "./useCreateAccessGroup";
 import { Fab } from "@material-ui/core";
+import Zoom from '@material-ui/core/Zoom';
 
 
 const useStyles = makeStyles(theme => ({
@@ -48,22 +49,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const variantIcon = {
-  success: CheckCircleIcon,
-};
-
-
 const CreateAccessGroupButton = ({ id }) => {
   const { loading, accessGroup } = useAccessGroup({ id })
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [createAccessGroup] = useAccessGroup()
+  const [createAccessGroup] = useCreateAccessGroup()
+  const checked = React.useState(true);
 
 
   const submitForm = async accessGroup => {
     createAccessGroup(accessGroup)
 
   }
+
   if (loading) {
     return <div> <CircularProgress /> </div>
   }
@@ -78,6 +76,8 @@ const CreateAccessGroupButton = ({ id }) => {
 
   return (
     <>  
+    <Zoom in={checked}
+          {...(checked ? { timeout: 500 } : {})}>
     <Tooltip title="Add Access Group" aria-label="add">
       <Fab
         variant="contained"
@@ -89,6 +89,7 @@ const CreateAccessGroupButton = ({ id }) => {
         <AddIcon />
       </Fab>
     </Tooltip>
+    </Zoom>
     <Dialog
     open={open}
     onClose={handleClose}
@@ -102,13 +103,10 @@ const CreateAccessGroupButton = ({ id }) => {
           </DialogContentText>
           <Form
       onSubmit={submitForm}
-      initialValues={{
-        id: id,
-      }}
     >
       {props => (
         <form onSubmit={props.handleSubmit}>
-          <Field name="name" component={TextFieldAdapter} floatingLabelText="Service Name" />
+          <Field name="name" component={TextFieldAdapter} floatingLabelText="Access Group Name" />
           <Button type="submit" onClick={handleClose} color="primary">Submit</Button>
         </form>
       )}

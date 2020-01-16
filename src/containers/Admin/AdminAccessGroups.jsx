@@ -27,7 +27,7 @@ const AdminAccessGroups = () => {
       <br/>
       <AccessGroupCards accessGroups={accessGroups} />
       
-      {/* <CreateAccessGroupButton /> */}
+      <CreateAccessGroupButton />
 
     </Paper>
   )

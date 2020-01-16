@@ -6,7 +6,6 @@ const CREATE_SERVICE = gql`
   mutation addService($name: String!) {
     addService(name: $name) {
       name
-      id
     }
   }
 `

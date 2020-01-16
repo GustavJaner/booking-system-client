@@ -54,15 +54,12 @@ const useStyles = makeStyles(theme => ({
 
 
 const ServiceCard = ({ services = [] }) => {
-  console.log(services)
-  console.log(services.sort())
   var counter = 1;
   var image = "";
   const classes = useStyles();
 
   const getImage = (name) => {
     name = name.toLowerCase()
-    console.log(name)
     if (name.includes("laundry") || name.includes("wash")){
       image = laundry;
     }

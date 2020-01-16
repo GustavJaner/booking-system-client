@@ -52,8 +52,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AccessGroupCard = ({ accessGroups = [] }) => {
-  console.log(accessGroups)
-  console.log(accessGroups.sort())
   var counter = 1;
   var image = "";
   const classes = useStyles();
