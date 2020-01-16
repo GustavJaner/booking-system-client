@@ -9,12 +9,17 @@ import LoadingAnimation from "../../components/General/LoadingAnimation"
 import Container from "@material-ui/core/Container"
 import Paper from "@material-ui/core/Paper"
 import clsx from "clsx"
-import Select from "react-select"
+//import Select from "react-select"
 import SelectDateTime from "./SelectDateTime"
-import InputLabel from "@material-ui/core/InputLabel"
 import ConfirmBooking from "../../components/Bookings/ConfirmBooking"
 import { Redirect } from 'react-router';
 import moment from "moment"
+
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 
 //GraphQL Imports
@@ -49,7 +54,11 @@ const useStyles = makeStyles(theme => ({
   },
   fixedHeight: {
     minHeight: 240
-  }
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
 }))
 
 
@@ -112,21 +121,7 @@ function BookingSite() {
       roomId: selectedRoomId
     }
   }
-  const getRoomOptions = () => {
-    return roomsQuery.rooms
-      .filter(room => room.service && room.service.id === serviceId)
-      .map(room => ({
-        label: room.name,
-        value: room.id
-      }))
-  }
 
-  const getServicesOptions = () => {
-    return servicesQuery.services.map(service => ({
-      label: service.name,
-      value: service.id
-    }))
-  }
   const sendBooking = () => {
     createBooking({
       startTime: timeslot.start,
@@ -151,14 +146,28 @@ function BookingSite() {
     }
   }
 
+  const serviceOptions = servicesQuery.services.map(service => {
+    return (
+      <MenuItem value={service.id}>{service.name}</MenuItem>
+    )
+  })
+
+  const roomOptions = roomsQuery.rooms.filter(room => room.service && room.service.id === serviceId).map(room => {
+    return (
+      <MenuItem value={room.id}>{room.name}</MenuItem>
+    )
+  })
 
   if (servicesQuery.loading || roomsQuery.loading) {
     return <LoadingAnimation />
   }
 
+
   if (called) {
     return <Redirect push to="/dashboard" />;
   }
+
+
 
   return (
     <Container maxWidth="lg" className={classes.root}>
@@ -176,29 +185,34 @@ function BookingSite() {
         </Stepper>
 
         {activeStep === 0 && (
-          <>
-            <div style={{ zIndex: 1000 }}>
-              <InputLabel id="select-service">Select Service</InputLabel>
-              <Select
-                labelId="select-service"
-                options={getServicesOptions()}
-                onChange={e => setServiceId(e.value)}
-              />
-            </div>
-          </>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="select-service">Service</InputLabel>
+            <Select
+              labelId="select-service"
+              id="select-service"
+              value={serviceId}
+              onChange={event => {
+                setServiceId(event.target.value)
+              }}
+            >
+              {serviceOptions}
+            </Select>
+          </FormControl>
         )}
         {activeStep === 1 && (
-          <>
-            <div style={{ zIndex: 1000 }}>
-              <InputLabel id="select-room">Select Room </InputLabel>
-              <Select
-                labelId="select-room"
-                id="select"
-                onChange={e => setSelectedRoomId(e.value)}
-                options={getRoomOptions()}
-              />
-            </div>
-          </>
+          <FormControl className={classes.formControl}>
+            <InputLabel id="select-room">Room</InputLabel>
+            <Select
+              labelId="select-room"
+              id="select-room"
+              value={selectedRoomId}
+              onChange={event => {
+                setSelectedRoomId(event.target.value)
+              }}
+            >
+              {roomOptions}
+            </Select>
+          </FormControl>
         )}
         {activeStep === 2 && (
           <SelectDateTime
