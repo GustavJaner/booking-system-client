@@ -146,6 +146,18 @@ function BookingSite() {
     }
   }
 
+  const serviceOptions = servicesQuery.services.map(service => {
+    return (
+      <MenuItem value={service.id}>{service.name}</MenuItem>
+    )
+  })
+
+  const roomOptions = roomsQuery.rooms.filter(room => room.service && room.service.id === serviceId).map(room => {
+    return (
+      <MenuItem value={room.id}>{room.name}</MenuItem>
+    )
+  })
+
   if (servicesQuery.loading || roomsQuery.loading) {
     return <LoadingAnimation />
   }
@@ -154,6 +166,8 @@ function BookingSite() {
   if (called) {
     return <Redirect push to="/dashboard" />;
   }
+
+
 
   return (
     <Container maxWidth="lg" className={classes.root}>
@@ -181,11 +195,7 @@ function BookingSite() {
                 setServiceId(event.target.value)
               }}
             >
-              {servicesQuery.services.map(service => {
-                return (
-                  <MenuItem value={service.id}>{service.name}</MenuItem>
-                )
-              })}
+              {serviceOptions}
             </Select>
           </FormControl>
         )}
@@ -200,11 +210,7 @@ function BookingSite() {
                 setSelectedRoomId(event.target.value)
               }}
             >
-              {roomsQuery.rooms.filter(room => room.service && room.service.id === serviceId).map(room => {
-                return (
-                  <MenuItem value={room.id}>{room.name}</MenuItem>
-                )
-              })}
+              {roomOptions}
             </Select>
           </FormControl>
         )}
