@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles({
     card: {
         width: '600px',
+        marginBottom: 10,
     },
     title: {
         fontSize: 14,
@@ -43,9 +44,9 @@ function CurrentBookings({ booking, handleDelete }) {
                     <Button color='primary' onClick={handleClick}>
                         Remove
                     </Button>
-                    <Button color='primary' onClick={handleClick}>
+                    {/*<Button color='primary' onClick={handleClick}>
                         Update
-                    </Button>
+    </Button>*/}
                 </CardActions>
             </Card>
         </>

@@ -13,6 +13,7 @@ import RemoveBookningSnackbar from '../../components/General/RemoveBookingSnackb
 import useBookingsByUser from "../../components/Bookings/useBookingsByUser"
 import useRemoveBooking from "../../components/Booking/useRemoveBooking"
 import CurrentBookings from "../../components/Bookings/CurrentBookings"
+import Typography from "@material-ui/core/Typography"
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -27,6 +28,10 @@ const useStyles = makeStyles(theme => ({
   },
   fixedHeight: {
     minHeight: 240
+  },
+  typographyMargin: {
+    marginTop: 10,
+    marginBottom: 20
   }
 }))
 
@@ -38,6 +43,7 @@ export default function Dashboard() {
   const [removeBooking, { error }] = useRemoveBooking({ id: bookingId });
   const { bookings, loading } = useBookingsByUser()
   const [open, setOpen] = useState(false);
+  const bookings2 = [];
 
   async function handleDelete(booking) {
     await setBookingId(booking.room.id);
@@ -59,26 +65,37 @@ export default function Dashboard() {
       </div>
     )
   }
+  bookings.map(booking => {
+    if (futureBooking(booking)) {
+      bookings2.push(booking)
+    }
+  })
 
   return (
     <Container maxWidth="lg" className={classes.container}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          {bookings.length > 0 ? (
+          {bookings2.length > 0 ? (
             <Paper className={fixedHeightPaper}>
-              {bookings.map(booking => {
-                if (futureBooking(booking))
-                  return (
-                    <CurrentBookings
-                      key={booking.id}
-                      booking={booking}
-                      handleDelete={handleDelete}
-                    />
-                  )
+              <Typography variant='h4' className={classes.typographyMargin}>
+                Current Bookings
+                </Typography>
+              {bookings2.map(booking => {
+                return (
+                  <CurrentBookings
+                    key={booking.id}
+                    booking={booking}
+                    handleDelete={handleDelete}
+                  />
+                )
               })}
             </Paper>
           ) : (
-              <p> No bookings </p>
+              <Paper className={fixedHeightPaper}>
+                <Typography variant='h4' className={classes.typographyMargin}>
+                  You've got no current bookings!
+                </Typography>
+              </Paper>
             )}
         </Grid>
       </Grid>

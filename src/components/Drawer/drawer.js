@@ -14,6 +14,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { adminListItems, bookingListItems } from './ListItems';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
+
 
 const drawerWidth = 240;
 
@@ -78,13 +81,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MiniDrawer() {
-  
+export default function MiniDrawer({ logout, admin }) {
+
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-
-  const [admin, setAdmin] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -94,9 +95,6 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  const handleAdmin = () => {
-    setAdmin(!admin);
-  }
 
   return (
     <>
@@ -122,9 +120,9 @@ export default function MiniDrawer() {
           <Typography variant="h6" noWrap>
             {admin ? "EasyBooking - Admin" : "EasyBooking"}
           </Typography>
-          <IconButton onClick={handleAdmin} color="inherit">
+          <IconButton onClick={logout} color="inherit">
             <Badge badgeContent={0} color="secondary">
-                <NotificationsIcon/>
+              <ExitToAppIcon />
             </Badge>
           </IconButton>
         </Toolbar>
@@ -150,7 +148,8 @@ export default function MiniDrawer() {
         </div>
         <Divider />
         <List>
-          {admin ? adminListItems : bookingListItems}
+          {admin ? bookingListItems : bookingListItems}
+          {admin ? adminListItems : <></>}
         </List>
         <Divider />
       </Drawer>
