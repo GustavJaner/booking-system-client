@@ -148,13 +148,13 @@ function BookingSite() {
 
   const serviceOptions = servicesQuery.services.map(service => {
     return (
-      <MenuItem value={service.id}>{service.name}</MenuItem>
+      <MenuItem key={service.id} value={service.id}>{service.name}</MenuItem>
     )
   })
 
   const roomOptions = roomsQuery.rooms.filter(room => room.service && room.service.id === serviceId).map(room => {
     return (
-      <MenuItem value={room.id}>{room.name}</MenuItem>
+      <MenuItem key={room.id} value={room.id}>{room.name}</MenuItem>
     )
   })
 
