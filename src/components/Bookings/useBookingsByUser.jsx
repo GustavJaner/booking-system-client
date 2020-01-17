@@ -13,6 +13,7 @@ export const GET_BOOKINGS = gql`
         id
         name
         service {
+          id
           name
         }
       }
