@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
+    display: 'flex',
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -81,7 +82,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
   },
   logOutButton: {
-    left: theme.spacing(130),
+    position: 'absolute',
+    right: 0,
+    marginRight: theme.spacing(3)
   }
 }));
 
@@ -125,7 +128,7 @@ export default function MiniDrawer({ logout, admin }) {
             {admin ? "EasyBooking - Admin" : "EasyBooking"}
           </Typography>
           <Tooltip title="Logout" aria-label="logout">
-          <IconButton onClick={logout} color="inherit" className={classes.logOutButton}>
+          <IconButton onClick={logout} color="inherit" edge="end" className={classes.logOutButton}>
             <Badge badgeContent={0} color="secondary">
               <ExitToAppIcon />
             </Badge>

@@ -5,6 +5,7 @@ import ListItemText from "@material-ui/core/ListItemText"
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom"
 import VpnKeyIcon from "@material-ui/icons/VpnKey"
 import PersonIcon from "@material-ui/icons/Person"
+import RoomIcon from "@material-ui/icons/Room"
 import LocalLaundryServiceIcon from "@material-ui/icons/LocalLaundryService"
 import HomeIcon from "@material-ui/icons/Home"
 import { Link } from "react-router-dom"
@@ -90,7 +91,7 @@ export const bookingListItems = (
       </ListItem>*/}
     <ListItem button component={BookingLink}>
       <ListItemIcon>
-        <PersonIcon />
+        <RoomIcon />
       </ListItemIcon>
       <ListItemText primary="Book" />
     </ListItem>

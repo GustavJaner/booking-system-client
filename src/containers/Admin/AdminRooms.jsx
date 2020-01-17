@@ -31,8 +31,7 @@ const AdminRooms = () => {
         <RoomList rooms={rooms} toggle={toggle}/>
         {open && <CreateRoomForm/>}
       </>
-  </Paper>
-
+    </Paper>
   )
 }
 export default AdminRooms
